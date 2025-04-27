@@ -25,8 +25,7 @@ interface FlowProps {
     edgeType?: EdgeType;
 }
 
-
-export const Flow: React.FC<FlowProps> = (props) => {
+const Flow: React.FC<FlowProps> = (props) => {
 
     // 流程图背景颜色
     const FLOW_BACKGROUND_COLOR = '#f3f5f8';
@@ -121,4 +120,6 @@ export const Flow: React.FC<FlowProps> = (props) => {
         </div>
     )
 };
+
+export default Flow;
 

@@ -1,6 +1,6 @@
 {
   "name": "@codingapi/flow-pc",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "A UI Framework built with React and TypeScript",
   "keywords": [
     "ui",
