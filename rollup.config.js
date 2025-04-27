@@ -14,7 +14,6 @@ export default {
     'react-dom',
     'antd',
     '@codingapi/ui-framework',
-    'monaco-editor',
   ],
   output: [
     {
