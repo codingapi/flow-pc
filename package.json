@@ -1,6 +1,6 @@
 {
   "name": "@codingapi/flow-pc",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A UI Framework built with React and TypeScript",
   "keywords": [
     "ui",
@@ -36,6 +36,7 @@
     "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0"
   },
   "dependencies": {
+    "@ant-design/pro-components": "^2.8.7",
     "@codingapi/form-pc": "^0.0.16",
     "@codingapi/ui-framework": "^0.0.12",
     "@logicflow/core": "^2.0.5",

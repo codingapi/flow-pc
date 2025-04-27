@@ -1,7 +1,7 @@
 import {FlowViewProps} from "@codingapi/ui-framework";
 import React from "react";
 import {Modal} from "antd";
-import FlowView from "../view/index";
+import {FlowView} from "./index";
 import "./FlowModelView.scss";
 
  const FlowModelView:React.FC<FlowViewProps> = (props)=>{
