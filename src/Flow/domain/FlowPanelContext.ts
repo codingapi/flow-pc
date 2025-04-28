@@ -5,13 +5,13 @@ import {message} from "antd";
 import NodeData = LogicFlow.NodeData;
 import RegisterConfig = LogicFlow.RegisterConfig;
 import GraphConfigData = LogicFlow.GraphConfigData;
-import GroovyScript from "../utils/script";
+import {GroovyScript} from "../utils/script";
 
 // 节点移动距离
 const TRANSLATION_DISTANCE = 40
 
 // 逻辑面板上下文
-class FlowPanelContext {
+export class FlowPanelContext {
 
     private readonly lfRef: React.RefObject<LogicFlow>;
 
@@ -524,4 +524,3 @@ class FlowPanelContext {
     }
 }
 
-export default FlowPanelContext;

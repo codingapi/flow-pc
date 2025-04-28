@@ -14,7 +14,7 @@ interface ScriptModalProps {
     onFinish: (values: any) => void;
 }
 
-const ScriptModal: React.FC<ScriptModalProps> = (props) => {
+export const ScriptModal: React.FC<ScriptModalProps> = (props) => {
     return (
         <Modal
             width={"85vw"}
@@ -68,4 +68,3 @@ const ScriptModal: React.FC<ScriptModalProps> = (props) => {
     )
 }
 
-export default ScriptModal;

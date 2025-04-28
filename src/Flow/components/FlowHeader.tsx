@@ -1,5 +1,5 @@
 import React, {useContext} from "react";
-import FlowButton from "../components/FlowButton";
+import {FlowButton} from "./FlowButton";
 import {FlowViewReactContext} from "../view";
 
 interface FlowHeaderProps{
@@ -7,7 +7,7 @@ interface FlowHeaderProps{
 }
 
 // 流程详情header头信息
-const FlowHeader:React.FC<FlowHeaderProps> = (props)=>{
+export const FlowHeader:React.FC<FlowHeaderProps> = (props)=>{
     const flowViewReactContext = useContext(FlowViewReactContext);
     const flowRecordContext =  flowViewReactContext?.flowRecordContext;
     const currentNode = flowRecordContext?.getCurrentNode();
@@ -24,4 +24,3 @@ const FlowHeader:React.FC<FlowHeaderProps> = (props)=>{
     )
 }
 
-export default FlowHeader;

@@ -1,8 +1,8 @@
 import React from "react";
 import {Button, Divider, Space} from "antd";
 import {EyeOutlined, SettingOutlined} from "@ant-design/icons";
-import GroovyScript from "../../utils/script";
-import ScriptModal from "../../nodes/panel/ScriptModal";
+import {GroovyScript} from "../../utils/script";
+import {ScriptModal} from "./ScriptModal";
 import {ValidateUtils,ComponentBus,FormInstance} from "@codingapi/ui-framework";
 import {FormSelect,FormSwitch,FormInput,Form} from "@codingapi/form-pc";
 import {UserSelectFormProps, UserSelectFormViewKey} from "@codingapi/ui-framework";
@@ -15,7 +15,7 @@ interface NodePanelProps {
     type: string,
 }
 
-const NodePanel: React.FC<NodePanelProps> = (props) => {
+export const NodePanel: React.FC<NodePanelProps> = (props) => {
 
     const groovyForm = Form.useForm();
 
@@ -273,7 +273,4 @@ const NodePanel: React.FC<NodePanelProps> = (props) => {
         </>
     )
 }
-
-export default NodePanel;
-
 

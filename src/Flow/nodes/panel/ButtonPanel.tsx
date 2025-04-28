@@ -1,9 +1,9 @@
 import React from "react";
 import {ActionType, ProColumns, ProTable} from "@ant-design/pro-components";
 import {Button, ColorPicker, Modal, Popconfirm, Space} from "antd";
-import ScriptModal from "../../nodes/panel/ScriptModal";
+import {ScriptModal} from "./ScriptModal";
 import {EyeOutlined} from "@ant-design/icons";
-import FlowContext from "../../domain/FlowContext";
+import {FlowContext} from "../../domain/FlowContext";
 import {Form,FormInput,FormSelect,FormColor} from "@codingapi/form-pc";
 import {ValidateUtils} from "@codingapi/ui-framework";
 
@@ -11,7 +11,7 @@ interface ButtonPanelProps {
     id: string;
 }
 
-const ButtonPanel: React.FC<ButtonPanelProps> = (props) => {
+export const ButtonPanel: React.FC<ButtonPanelProps> = (props) => {
 
     const actionRef = React.useRef<ActionType>();
 
@@ -227,4 +227,3 @@ const ButtonPanel: React.FC<ButtonPanelProps> = (props) => {
     )
 }
 
-export default ButtonPanel;

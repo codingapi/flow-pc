@@ -1,12 +1,12 @@
 import React from "react";
 import {Button, Drawer, Space, Tabs} from "antd";
-import EdgePanel from "../../nodes/panel/EdgePanel";
-import NodePanel from "../../nodes/panel/NodePanel";
-import ButtonPanel from "../../nodes/panel/ButtonPanel";
+import {EdgePanel} from "./EdgePanel";
+import {NodePanel} from "./NodePanel";
+import {ButtonPanel} from "./ButtonPanel";
 import {SettingPanelProps} from "@codingapi/ui-framework";
 import {Form} from "@codingapi/form-pc";
 
-const StartSettingPanel: React.FC<SettingPanelProps> = (props) => {
+export const StartSettingPanel: React.FC<SettingPanelProps> = (props) => {
 
     const form = Form.useForm();
 
@@ -78,4 +78,3 @@ const StartSettingPanel: React.FC<SettingPanelProps> = (props) => {
 
 }
 
-export default StartSettingPanel;

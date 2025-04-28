@@ -16,7 +16,7 @@ interface FlowChartProps {
     edgeType?: EdgeType;
 }
 
-const FlowChart: React.FC<FlowChartProps> = (props) => {
+export const FlowChart: React.FC<FlowChartProps> = (props) => {
 
     const flowViewReactContext = useContext(FlowViewReactContext);
     const flowRecordContext = flowViewReactContext?.flowRecordContext;
@@ -92,4 +92,3 @@ const FlowChart: React.FC<FlowChartProps> = (props) => {
     )
 }
 
-export default FlowChart;

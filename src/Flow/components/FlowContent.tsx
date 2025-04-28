@@ -4,13 +4,13 @@ import {FlowViewReactContext} from "../view";
 import {useSelector} from "react-redux";
 import {FlowReduxState} from "../store/FlowSlice";
 import {Divider, Tabs, TabsProps} from "antd";
-import FlowFormOpinion from "../components/FlowFormOpinion";
-import FlowHistory from "../components/FlowHistory";
-import FlowOpinion from "../components/FlowOpinion";
-import FlowChart from "../components/FlowChart";
-import FlowHistoryLine from "../components/FlowHistoryLine";
+import {FlowFormOpinion} from "./FlowFormOpinion";
+import {FlowHistory} from "./FlowHistory";
+import {FlowOpinion} from "./FlowOpinion";
+import {FlowChart} from "./FlowChart";
+import {FlowHistoryLine} from "./FlowHistoryLine";
 
-const FlowContent = () => {
+export const FlowContent = () => {
     const flowViewReactContext = useContext(FlowViewReactContext);
 
     const flowRecordContext = flowViewReactContext?.flowRecordContext;
@@ -94,4 +94,3 @@ const FlowContent = () => {
     )
 }
 
-export default FlowContent;

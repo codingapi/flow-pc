@@ -16,7 +16,7 @@ const optionStateConvert = (data: any) => {
     return '暂存'
 }
 
-const FlowOpinion = () => {
+export const FlowOpinion = () => {
 
     const flowViewReactContext = useContext(FlowViewReactContext);
     const flowRecordContext = flowViewReactContext?.flowRecordContext;
@@ -51,4 +51,3 @@ const FlowOpinion = () => {
     )
 }
 
-export default FlowOpinion;

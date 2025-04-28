@@ -2,8 +2,8 @@ import {HtmlNode, HtmlNodeModel} from '@logicflow/core';
 import React from "react";
 import ReactDOM from "react-dom/client";
 import {PlayCircleFilled, SettingFilled} from "@ant-design/icons";
-import StartSettingPanel from "../../nodes/panel/start";
-import StateTag from "../../nodes/panel/StateTag";
+import {StartSettingPanel} from "../panel/start";
+import {StateTag} from "../panel/StateTag";
 import {NodeState} from "@codingapi/ui-framework";
 
 type StartProperties ={

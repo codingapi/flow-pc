@@ -10,7 +10,7 @@ import {FlowReduxState, flowStore, initState, updateState} from "../store/FlowSl
 import {FlowApiContent} from "../api/flow";
 import {Provider, useDispatch, useSelector} from "react-redux";
 import {Skeleton} from "antd";
-import FlowPage from "../components/FlowPage";
+import {FlowPage} from "../components/FlowPage";
 import "./index.scss";
 
 // 流程视图上下文属性

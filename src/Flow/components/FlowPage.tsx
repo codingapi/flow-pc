@@ -16,10 +16,10 @@ import {useDispatch, useSelector} from "react-redux";
 import {FlowEventContext} from "../domain/FlowEventContext";
 import {FlowButtonClickContext} from "../domain/FlowButtonClickContext";
 import {FlowViewReactContext} from "../view";
-import FlowResult from "../components/FlowResult";
-import FlowContent from "../components/FlowContent";
-import FlowForm404 from "../components/FlowForm404";
-import FlowHeader from "../components/FlowHeader";
+import {FlowResult} from "./FlowResult";
+import {FlowContent} from "./FlowContent";
+import {FlowForm404} from "./FlowForm404";
+import {FlowHeader} from "./FlowHeader";
 import {ComponentBus} from "@codingapi/ui-framework";
 
 
@@ -28,7 +28,7 @@ interface FlowPageProps extends FlowViewProps {
     flowData: any;
 }
 
-const FlowPage:React.FC<FlowPageProps> = (props)=>{
+export const FlowPage:React.FC<FlowPageProps> = (props)=>{
 
     const dispatch = useDispatch();
 
@@ -131,4 +131,3 @@ const FlowPage:React.FC<FlowPageProps> = (props)=>{
     )
 }
 
-export default FlowPage;

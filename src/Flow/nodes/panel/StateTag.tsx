@@ -6,7 +6,7 @@ interface StateLabelProps {
     state:NodeState;
 }
 
-const StateTag:React.FC<StateLabelProps> = (props)=>{
+export const StateTag:React.FC<StateLabelProps> = (props)=>{
 
     const color = (state:NodeState) => {
         switch (state) {
@@ -43,4 +43,3 @@ const StateTag:React.FC<StateLabelProps> = (props)=>{
     )
 }
 
-export default StateTag

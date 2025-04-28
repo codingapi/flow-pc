@@ -10,9 +10,9 @@ import {
 } from "@ant-design/icons";
 import {Tooltip} from "antd";
 import "./ControlPanel.scss";
-import FlowContext from "../domain/FlowContext";
+import {FlowContext} from "../domain/FlowContext";
 
-const ControlPanel = () => {
+export const ControlPanel = () => {
     const iconSize = 16;
 
     const flowContext = FlowContext.getInstance();
@@ -92,4 +92,3 @@ const ControlPanel = () => {
     )
 }
 
-export default ControlPanel;

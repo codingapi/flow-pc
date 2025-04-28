@@ -6,7 +6,7 @@ import {FlowViewReactContext} from "../view";
 import {Button, Result} from "antd";
 
 
-const FlowResult = () => {
+export const FlowResult = () => {
 
     const result = useSelector((state: FlowReduxState) => state.flow.result);
     const navigate = useNavigate();
@@ -46,4 +46,3 @@ const FlowResult = () => {
     )
 }
 
-export default FlowResult;

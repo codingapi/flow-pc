@@ -5,7 +5,7 @@ interface FlowForm404Props{
     setVisible:(visible:boolean)=>void;
 }
 
-const FlowForm404:React.FC<FlowForm404Props> = (props)=>{
+export const FlowForm404:React.FC<FlowForm404Props> = (props)=>{
 
     return (
         <Result
@@ -23,4 +23,3 @@ const FlowForm404:React.FC<FlowForm404Props> = (props)=>{
     )
 }
 
-export default FlowForm404;

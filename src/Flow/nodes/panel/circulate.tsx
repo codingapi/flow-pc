@@ -1,11 +1,11 @@
 import React from "react";
 import {Button, Drawer, Space, Tabs} from "antd";
-import NodePanel from "../../nodes/panel/NodePanel";
-import EdgePanel from "../../nodes/panel/EdgePanel";
+import {NodePanel} from "./NodePanel";
+import {EdgePanel} from "./EdgePanel";
 import {SettingPanelProps} from "@codingapi/ui-framework";
 import {Form} from "@codingapi/form-pc";
 
-const CirculateSettingPanel: React.FC<SettingPanelProps> = (props) => {
+export const CirculateSettingPanel: React.FC<SettingPanelProps> = (props) => {
 
     const form = Form.useForm();
 
@@ -68,4 +68,3 @@ const CirculateSettingPanel: React.FC<SettingPanelProps> = (props) => {
 
 }
 
-export default CirculateSettingPanel;

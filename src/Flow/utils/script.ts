@@ -1,4 +1,4 @@
-class GroovyScript {
+export class GroovyScript {
 
     public static defaultOutTrigger = "def run(content) {return true;}";
     public static defaultTitleGenerator = "def run(content){ return content.getCurrentOperator().getName() + '-' + content.getFlowWork().getTitle() + '-' + content.getFlowNode().getName();}";
@@ -58,4 +58,3 @@ class GroovyScript {
     }
 }
 
-export default GroovyScript;

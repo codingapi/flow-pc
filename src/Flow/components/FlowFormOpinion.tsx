@@ -2,7 +2,7 @@ import React, {useContext, useEffect} from "react";
 import {Form} from "@codingapi/form-pc";
 import {FlowViewReactContext} from "../view";
 
-const FlowFormOpinion = ()=>{
+export const FlowFormOpinion = ()=>{
 
     const flowViewReactContext = useContext(FlowViewReactContext);
     const opinionInstance = flowViewReactContext?.opinionInstance;
@@ -43,4 +43,3 @@ const FlowFormOpinion = ()=>{
     )
 }
 
-export default FlowFormOpinion;

@@ -2,8 +2,8 @@ import {HtmlNode, HtmlNodeModel} from '@logicflow/core';
 import React from "react";
 import ReactDOM from "react-dom/client";
 import {CheckCircleFilled, SettingFilled} from "@ant-design/icons";
-import OverSettingPanel from "../../nodes/panel/over";
-import StateTag from "../../nodes/panel/StateTag";
+import {OverSettingPanel} from "../panel/over";
+import {StateTag} from "../panel/StateTag";
 import {NodeState} from "@codingapi/ui-framework";
 
 type OverProperties = {

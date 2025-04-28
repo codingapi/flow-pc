@@ -7,13 +7,13 @@ import Start from "./nodes/Start";
 import Node from "./nodes/Node";
 import Over from "./nodes/Over";
 import Circulate from "./nodes/Circulate";
-import ControlPanel from "./panel/ControlPanel";
-import NodePanel from "./panel/NodePanel";
+import {ControlPanel} from "./panel/ControlPanel";
+import {NodePanel} from "./panel/NodePanel";
 import {EdgeType} from "@codingapi/ui-framework";
 
 import "./index.scss";
-import FlowPanelContext from "./domain/FlowPanelContext";
-import FlowContext from "./domain/FlowContext";
+import {FlowPanelContext} from "./domain/FlowPanelContext";
+import {FlowContext} from "./domain/FlowContext";
 
 export interface FlowActionType {
     getData: () => any;
@@ -25,7 +25,7 @@ interface FlowProps {
     edgeType?: EdgeType;
 }
 
-const Flow: React.FC<FlowProps> = (props) => {
+export const Flow: React.FC<FlowProps> = (props) => {
 
     // 流程图背景颜色
     const FLOW_BACKGROUND_COLOR = '#f3f5f8';
@@ -121,5 +121,4 @@ const Flow: React.FC<FlowProps> = (props) => {
     )
 };
 
-export default Flow;
 

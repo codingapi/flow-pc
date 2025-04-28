@@ -1,6 +1,6 @@
-import FlowPanelContext from "./FlowPanelContext";
+import {FlowPanelContext} from "./FlowPanelContext";
 
-class FlowContext{
+export class FlowContext{
 
     private flowPanelContext: FlowPanelContext | null = null;
 
@@ -22,4 +22,3 @@ class FlowContext{
     }
 }
 
-export default FlowContext;

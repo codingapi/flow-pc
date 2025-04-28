@@ -17,7 +17,7 @@ const recodeTypeConvert = (data: any) => {
 }
 
 
-const FlowHistoryLine = () => {
+export const FlowHistoryLine = () => {
     const flowViewReactContext = useContext(FlowViewReactContext);
     const flowRecordContext = flowViewReactContext?.flowRecordContext;
 
@@ -52,4 +52,3 @@ const FlowHistoryLine = () => {
     )
 }
 
-export default FlowHistoryLine;

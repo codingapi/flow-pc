@@ -130,7 +130,7 @@ const timeoutTimeConvert = (data: any) => {
 }
 
 
-const FlowHistory = () => {
+export const FlowHistory = () => {
     const flowViewReactContext = useContext(FlowViewReactContext);
     const flowRecordContext = flowViewReactContext?.flowRecordContext;
 
@@ -164,4 +164,3 @@ const FlowHistory = () => {
     return <></>
 }
 
-export default FlowHistory;

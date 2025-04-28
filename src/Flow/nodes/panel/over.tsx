@@ -1,10 +1,10 @@
 import React from "react";
 import {Button, Drawer, Space} from "antd";
-import NodePanel from "../../nodes/panel/NodePanel";
+import {NodePanel} from "./NodePanel";
 import {SettingPanelProps} from "@codingapi/ui-framework";
 import {Form} from "@codingapi/form-pc";
 
-const OverSettingPanel: React.FC<SettingPanelProps> = (props) => {
+export const OverSettingPanel: React.FC<SettingPanelProps> = (props) => {
 
     const form = Form.useForm();
 
@@ -48,4 +48,3 @@ const OverSettingPanel: React.FC<SettingPanelProps> = (props) => {
 
 }
 
-export default OverSettingPanel;

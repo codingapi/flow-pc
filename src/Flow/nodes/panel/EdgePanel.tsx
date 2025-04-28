@@ -2,8 +2,8 @@ import React from "react";
 import {ActionType, ProTable} from "@ant-design/pro-components";
 import {Input, InputNumber, Popconfirm, Space} from "antd";
 import {CheckOutlined, EditOutlined, SettingOutlined} from "@ant-design/icons";
-import ScriptModal from "../../nodes/panel/ScriptModal";
-import FlowContext from "../../domain/FlowContext";
+import {ScriptModal} from "./ScriptModal";
+import {FlowContext} from "../../domain/FlowContext";
 import {Form} from "@codingapi/form-pc";
 
 interface EdgePanelProps {
@@ -11,7 +11,7 @@ interface EdgePanelProps {
     type: string;
 }
 
-const EdgePanel: React.FC<EdgePanelProps> = (props) => {
+export const EdgePanel: React.FC<EdgePanelProps> = (props) => {
 
     const [visible, setVisible] = React.useState(false);
 
@@ -192,4 +192,3 @@ const EdgePanel: React.FC<EdgePanelProps> = (props) => {
         </>
     )
 }
-export default EdgePanel;

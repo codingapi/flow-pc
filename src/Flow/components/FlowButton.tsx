@@ -8,7 +8,7 @@ interface FlowHeaderProps{
     setVisible:(visible:boolean)=>void;
 }
 
-const FlowButton:React.FC<FlowHeaderProps> = (props) => {
+export const FlowButton:React.FC<FlowHeaderProps> = (props) => {
     const flowViewReactContext = useContext(FlowViewReactContext);
 
     const flowRecordContext = flowViewReactContext?.flowRecordContext;
@@ -72,4 +72,3 @@ const FlowButton:React.FC<FlowHeaderProps> = (props) => {
     }
 }
 
-export default FlowButton;

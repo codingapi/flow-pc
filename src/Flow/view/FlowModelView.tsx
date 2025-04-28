@@ -4,7 +4,7 @@ import {Modal} from "antd";
 import {FlowView} from "./index";
 import "./FlowModelView.scss";
 
- const FlowModelView:React.FC<FlowViewProps> = (props)=>{
+ export const FlowModelView:React.FC<FlowViewProps> = (props)=>{
     return (
         <Modal
             className={"flow-modal"}
@@ -29,4 +29,3 @@ import "./FlowModelView.scss";
     )
 }
 
-export default FlowModelView;
