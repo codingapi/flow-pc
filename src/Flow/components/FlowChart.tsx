@@ -4,10 +4,10 @@ import '@logicflow/extension/lib/style/index.css';
 import {LogicFlow, Options} from "@logicflow/core";
 import {DndPanel, Menu, MiniMap, Snapshot} from "@logicflow/extension";
 import {FlowViewReactContext} from "../view";
-import Start from "../nodes/Start";
-import Over from "../nodes/Over";
-import Circulate from "../nodes/Circulate";
-import Node from "../nodes/Node";
+import {StartNodeConfig} from "../nodes/Start";
+import {OverNodeConfig} from "../nodes/Over";
+import {CirculateNodeConfig} from "../nodes/Circulate";
+import {NodeNodeConfig} from "../nodes/Node";
 import "../index.scss";
 
 import EdgeType = Options.EdgeType;
@@ -66,10 +66,10 @@ export const FlowChart: React.FC<FlowChartProps> = (props) => {
                 strokeWidth: 1,
             },
         });
-        lfRef.current.register(Start);
-        lfRef.current.register(Node);
-        lfRef.current.register(Over);
-        lfRef.current.register(Circulate);
+        lfRef.current.register(StartNodeConfig);
+        lfRef.current.register(NodeNodeConfig);
+        lfRef.current.register(OverNodeConfig);
+        lfRef.current.register(CirculateNodeConfig);
         lfRef.current.render(flowSchema);
 
         setTimeout(() => {

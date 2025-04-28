@@ -134,7 +134,7 @@ class OverNode extends HtmlNode {
     }
 }
 
-export default {
+export const OverNodeConfig = {
     type: 'over-node',
     view: OverNode,
     model: OverModel,

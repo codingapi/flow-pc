@@ -118,7 +118,7 @@ class StartNode extends HtmlNode {
     }
 }
 
-export default {
+export const StartNodeConfig = {
     type: 'start-node',
     view: StartNode,
     model: StartModel,

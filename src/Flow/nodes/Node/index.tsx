@@ -121,7 +121,7 @@ class NodeNode extends HtmlNode {
     }
 }
 
-export default {
+export const NodeNodeConfig = {
     type: 'node-node',
     view: NodeNode,
     model: NodeModel,

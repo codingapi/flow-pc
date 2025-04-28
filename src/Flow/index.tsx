@@ -3,10 +3,10 @@ import '@logicflow/core/es/index.css';
 import '@logicflow/extension/lib/style/index.css';
 import {LogicFlow} from "@logicflow/core";
 import {DndPanel, Menu, MiniMap, Snapshot} from "@logicflow/extension";
-import Start from "./nodes/Start";
-import Node from "./nodes/Node";
-import Over from "./nodes/Over";
-import Circulate from "./nodes/Circulate";
+import {StartNodeConfig} from "./nodes/Start";
+import {NodeNodeConfig} from "./nodes/Node";
+import {OverNodeConfig} from "./nodes/Over";
+import {CirculateNodeConfig} from "./nodes/Circulate";
 import {ControlPanel} from "./panel/ControlPanel";
 import {NodePanel} from "./panel/NodePanel";
 import {EdgeType} from "@codingapi/ui-framework";
@@ -99,10 +99,10 @@ export const Flow: React.FC<FlowProps> = (props) => {
             },
         });
 
-        flowPanelContext.register(Start);
-        flowPanelContext.register(Node);
-        flowPanelContext.register(Over);
-        flowPanelContext.register(Circulate);
+        flowPanelContext.register(StartNodeConfig);
+        flowPanelContext.register(NodeNodeConfig);
+        flowPanelContext.register(OverNodeConfig);
+        flowPanelContext.register(CirculateNodeConfig);
         flowPanelContext.render(data);
 
         lfRef.current.on('node:add', (data) => {

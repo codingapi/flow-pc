@@ -132,7 +132,7 @@ class CirculateNode extends HtmlNode {
     }
 }
 
-export default {
+export const CirculateNodeConfig = {
     type: 'circulate-node',
     view: CirculateNode,
     model: CirculateModel,
