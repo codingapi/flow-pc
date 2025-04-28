@@ -1,6 +1,6 @@
 import React, {useContext} from "react";
 import {useSelector} from "react-redux";
-import {FlowReduxState} from "../store/FlowSlice";
+import {FlowReduxState} from "../store";
 import {useNavigate} from "react-router";
 import {FlowViewReactContext} from "../view";
 import {Button, Result} from "antd";

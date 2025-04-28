@@ -9,10 +9,10 @@ import {
     ZoomOutOutlined
 } from "@ant-design/icons";
 import {Tooltip} from "antd";
-import "./ControlPanel.scss";
-import {FlowContext} from "../domain/FlowContext";
+import "./ControlLayoutPanel.scss";
+import {FlowContext} from "../domain";
 
-export const ControlPanel = () => {
+export const ControlLayoutPanel = () => {
     const iconSize = 16;
 
     const flowContext = FlowContext.getInstance();

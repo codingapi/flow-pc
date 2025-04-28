@@ -1,7 +1,7 @@
 import React from "react";
 import {Button, Divider, Space} from "antd";
 import {EyeOutlined, SettingOutlined} from "@ant-design/icons";
-import {GroovyScript} from "../../utils/script";
+import {GroovyScript} from "../../utils";
 import {ScriptModal} from "./ScriptModal";
 import {ValidateUtils,ComponentBus,FormInstance} from "@codingapi/ui-framework";
 import {FormSelect,FormSwitch,FormInput,Form} from "@codingapi/form-pc";
@@ -269,7 +269,6 @@ export const NodePanel: React.FC<NodePanelProps> = (props) => {
                     }}
                 />
             )}
-
         </>
     )
 }

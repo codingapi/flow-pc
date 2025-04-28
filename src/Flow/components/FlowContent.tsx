@@ -2,7 +2,7 @@ import React, {useContext, useEffect} from "react";
 import {FlowFormViewProps} from "@codingapi/ui-framework";
 import {FlowViewReactContext} from "../view";
 import {useSelector} from "react-redux";
-import {FlowReduxState} from "../store/FlowSlice";
+import {FlowReduxState} from "../store";
 import {Divider, Tabs, TabsProps} from "antd";
 import {FlowFormOpinion} from "./FlowFormOpinion";
 import {FlowHistory} from "./FlowHistory";

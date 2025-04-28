@@ -5,7 +5,7 @@ import {message} from "antd";
 import NodeData = LogicFlow.NodeData;
 import RegisterConfig = LogicFlow.RegisterConfig;
 import GraphConfigData = LogicFlow.GraphConfigData;
-import {GroovyScript} from "../utils/script";
+import {GroovyScript} from "../utils";
 
 // 节点移动距离
 const TRANSLATION_DISTANCE = 40

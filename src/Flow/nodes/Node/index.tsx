@@ -2,8 +2,8 @@ import {HtmlNode, HtmlNodeModel} from '@logicflow/core';
 import React from "react";
 import ReactDOM from "react-dom/client";
 import {PlusCircleFilled, SettingFilled} from "@ant-design/icons";
-import {NodeSettingPanel} from "../panel/node";
-import {StateTag} from "../panel/StateTag";
+import {NodeSettingPanel} from "../panel";
+import {StateTag} from "../panel";
 import {NodeState} from "@codingapi/ui-framework";
 
 type NodeProperties = {

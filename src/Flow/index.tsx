@@ -3,23 +3,23 @@ import '@logicflow/core/es/index.css';
 import '@logicflow/extension/lib/style/index.css';
 import {LogicFlow} from "@logicflow/core";
 import {DndPanel, Menu, MiniMap, Snapshot} from "@logicflow/extension";
-import {StartNodeConfig} from "./nodes/Start";
-import {NodeNodeConfig} from "./nodes/Node";
-import {OverNodeConfig} from "./nodes/Over";
-import {CirculateNodeConfig} from "./nodes/Circulate";
-import {ControlPanel} from "./panel/ControlPanel";
-import {NodePanel} from "./panel/NodePanel";
+import {StartNodeConfig} from "./nodes";
+import {NodeNodeConfig} from "./nodes";
+import {OverNodeConfig} from "./nodes";
+import {CirculateNodeConfig} from "./nodes";
+import {ControlLayoutPanel} from "./panel";
+import {NodeLayoutPanel} from "./panel";
 import {EdgeType} from "@codingapi/ui-framework";
 
 import "./index.scss";
-import {FlowPanelContext} from "./domain/FlowPanelContext";
-import {FlowContext} from "./domain/FlowContext";
+import {FlowPanelContext} from "./domain";
+import {FlowContext} from "./domain";
 
 export interface FlowActionType {
     getData: () => any;
 }
 
-interface FlowProps {
+export interface FlowProps {
     data?: LogicFlow.GraphConfigData;
     actionRef?: React.Ref<any>;
     edgeType?: EdgeType;
@@ -113,8 +113,8 @@ export const Flow: React.FC<FlowProps> = (props) => {
 
     return (
         <div className="flow-design">
-            <NodePanel/>
-            <ControlPanel/>
+            <NodeLayoutPanel/>
+            <ControlLayoutPanel/>
 
             <div className={"flow-view"} ref={container}/>
         </div>

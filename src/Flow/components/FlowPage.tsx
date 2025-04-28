@@ -7,14 +7,14 @@ import {
     UserSelectFormProps,
     UserSelectFormViewKey
 } from "@codingapi/ui-framework";
-import {FlowReduxState, updateState} from "../store/FlowSlice";
-import {FlowTriggerContext} from "../domain/FlowTriggerContext";
-import {FlowStateContext} from "../domain/FlowStateContext";
+import {FlowReduxState, updateState} from "../store";
+import {FlowTriggerContext} from "../domain";
+import {FlowStateContext} from "../domain";
 import {Form} from "@codingapi/form-pc";
-import {FlowRecordContext} from "../domain/FlowRecordContext";
+import {FlowRecordContext} from "../domain";
 import {useDispatch, useSelector} from "react-redux";
-import {FlowEventContext} from "../domain/FlowEventContext";
-import {FlowButtonClickContext} from "../domain/FlowButtonClickContext";
+import {FlowEventContext} from "../domain";
+import {FlowButtonClickContext} from "../domain";
 import {FlowViewReactContext} from "../view";
 import {FlowResult} from "./FlowResult";
 import {FlowContent} from "./FlowContent";

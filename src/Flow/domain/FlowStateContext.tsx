@@ -1,4 +1,4 @@
-import {FlowStore, UserSelectMode} from "../store/FlowSlice";
+import {FlowStore, UserSelectMode} from "../store";
 import {FlowResultMessage} from "@codingapi/ui-framework";
 
 /**

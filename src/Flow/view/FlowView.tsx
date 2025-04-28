@@ -1,17 +1,17 @@
 import React, {createContext, useEffect} from "react";
 import {FlowViewProps} from "@codingapi/ui-framework";
 import {FormInstance} from "@codingapi/ui-framework";
-import {FlowButtonClickContext} from "../domain/FlowButtonClickContext";
-import {FlowTriggerContext} from "../domain/FlowTriggerContext";
-import {FlowStateContext} from "../domain/FlowStateContext";
-import {FlowEventContext} from "../domain/FlowEventContext";
-import {FlowRecordContext} from "../domain/FlowRecordContext";
-import {FlowReduxState, flowStore, initState, updateState} from "../store/FlowSlice";
-import {FlowApiContent} from "../api/flow";
+import {FlowButtonClickContext} from "../domain";
+import {FlowTriggerContext} from "../domain";
+import {FlowStateContext} from "../domain";
+import {FlowEventContext} from "../domain";
+import {FlowRecordContext} from "../domain";
+import {FlowReduxState, flowStore, initState, updateState} from "../store";
+import {FlowApiContent} from "../api";
 import {Provider, useDispatch, useSelector} from "react-redux";
 import {Skeleton} from "antd";
-import {FlowPage} from "../components/FlowPage";
-import "./index.scss";
+import {FlowPage} from "../components";
+import "./FlowView.scss";
 
 // 流程视图上下文属性
 interface FlowViewReactContextProps {

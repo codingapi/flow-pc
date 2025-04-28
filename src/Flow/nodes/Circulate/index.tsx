@@ -2,8 +2,8 @@ import {HtmlNode, HtmlNodeModel} from '@logicflow/core';
 import React from "react";
 import ReactDOM from "react-dom/client";
 import {InboxOutlined, SettingFilled} from "@ant-design/icons";
-import {CirculateSettingPanel} from "../panel/circulate";
-import {StateTag} from "../panel/StateTag";
+import {CirculateSettingPanel} from "../panel";
+import {StateTag} from "../panel";
 import {NodeState} from "@codingapi/ui-framework";
 
 type CirculateProperties = {

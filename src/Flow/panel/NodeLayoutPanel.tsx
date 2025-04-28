@@ -1,15 +1,15 @@
 import React from "react";
-import {StartView} from "../nodes/Start";
-import {GroovyScript} from "../utils/script";
-import {NodeView} from "../nodes/Node";
-import {OverView} from "../nodes/Over";
-import {CirculateView} from "../nodes/Circulate";
+import {StartView} from "../nodes";
+import {GroovyScript} from "../utils";
+import {NodeView} from "../nodes";
+import {OverView} from "../nodes";
+import {CirculateView} from "../nodes";
 import {NodeType} from "@codingapi/ui-framework";
-import "./NodePanel.scss";
-import {FlowContext} from "../domain/FlowContext";
+import "./NodeLayoutPanel.scss";
+import {FlowContext} from "../domain";
 
 
-export const NodePanel = () => {
+export const NodeLayoutPanel = () => {
 
     const flowContext = FlowContext.getInstance();
 

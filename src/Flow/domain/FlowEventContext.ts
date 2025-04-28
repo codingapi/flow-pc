@@ -1,9 +1,9 @@
 import {FlowRecordContext} from "./FlowRecordContext";
 import {FlowStateContext} from "./FlowStateContext";
-import {FlowApiContent} from "../api/flow";
+import {FlowApiContent} from "../api";
 import {FlowUser} from "@codingapi/ui-framework";
 import {FlowSubmitResultParser} from "./FlowResultParser";
-import {UserSelectMode} from "../store/FlowSlice";
+import {UserSelectMode} from "../store";
 import {FlowTriggerContext} from "./FlowTriggerContext";
 import {FormInstance} from "@codingapi/ui-framework";
 

@@ -1,7 +1,7 @@
 import React, {useContext} from "react";
 import {FlowViewReactContext} from "../view";
 import {useSelector} from "react-redux";
-import {FlowReduxState} from "../store/FlowSlice";
+import {FlowReduxState} from "../store";
 import {Button} from "antd";
 
 interface FlowHeaderProps{
