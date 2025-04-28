@@ -1,13 +1,12 @@
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
-import typescript from 'rollup-plugin-typescript2';
+import typescript from '@rollup/plugin-typescript';
 import postcss from 'rollup-plugin-postcss';
 import del from 'rollup-plugin-delete';
 
 export default {
     input: 'src/index.ts',
-    inlineDynamicImports: true,
     external: [
         'react',
         'react-dom',
@@ -16,7 +15,9 @@ export default {
         '@codingapi/form-pc',
         '@ant-design/pro-components',
         '@logicflow/core',
-        '@logicflow/extension'
+        '@logicflow/extension',
+        '@reduxjs/toolkit',
+        'react-redux'
     ],
     output: [
         {
@@ -41,12 +42,14 @@ export default {
         peerDepsExternal(),
         resolve({
             preferBuiltins: true,
+            extensions: ['.ts', '.tsx', '.js', '.jsx']
         }),
         commonjs(),
         typescript({
             tsconfig: 'tsconfig.json',
-            useTsconfigDeclarationDir: true,
-            clean: true,
+            sourceMap: true,
+            declaration: true,
+            declarationDir: 'dist'
         }),
         postcss({
             extract: false,
