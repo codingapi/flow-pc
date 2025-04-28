@@ -1,15 +1,11 @@
 import React, {useContext} from "react";
 import {useSelector} from "react-redux";
 import {FlowReduxState} from "../store";
-import {useNavigate} from "react-router";
 import {FlowViewReactContext} from "../view";
 import {Button, Result} from "antd";
 
-
 export const FlowResult = () => {
-
     const result = useSelector((state: FlowReduxState) => state.flow.result);
-    const navigate = useNavigate();
 
     const flowViewReactContext = useContext(FlowViewReactContext);
 
@@ -33,11 +29,7 @@ export const FlowResult = () => {
                         className={"flow-result-content-button"}
                         block={true}
                         onClick={() => {
-                            if (result && result.closeable) {
-                                navigate(-1);
-                            }else {
-                                flowViewReactContext?.flowStateContext?.clearResult();
-                            }
+                            flowViewReactContext?.flowStateContext?.clearResult();
                         }}
                     >关闭页面</Button>
                 </div>
