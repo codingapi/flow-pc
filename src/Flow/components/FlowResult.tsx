@@ -4,7 +4,11 @@ import {FlowReduxState} from "../store";
 import {FlowViewReactContext} from "../view";
 import {Button, Result} from "antd";
 
-export const FlowResult = () => {
+interface FlowResultProps {
+    closeFlowView:()=>void;
+}
+
+export const FlowResult:React.FC<FlowResultProps> = (props) => {
     const result = useSelector((state: FlowReduxState) => state.flow.result);
 
     const flowViewReactContext = useContext(FlowViewReactContext);
@@ -29,7 +33,11 @@ export const FlowResult = () => {
                         className={"flow-result-content-button"}
                         block={true}
                         onClick={() => {
-                            flowViewReactContext?.flowStateContext?.clearResult();
+                            if (result && result.closeable) {
+                                props.closeFlowView();
+                            }else {
+                                flowViewReactContext?.flowStateContext?.clearResult();
+                            }
                         }}
                     >关闭页面</Button>
                 </div>

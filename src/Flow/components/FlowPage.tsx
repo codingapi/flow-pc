@@ -77,7 +77,9 @@ export const FlowPage:React.FC<FlowPageProps> = (props)=>{
                     <FlowHeader setVisible={props.setVisible}/>
 
                     {currentState.result && (
-                        <FlowResult/>
+                        <FlowResult closeFlowView={()=>{
+                            props.setVisible(false);
+                        }}/>
                     )}
                     <FlowContent/>
                 </div>
