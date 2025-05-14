@@ -1,19 +1,6 @@
-# @codingapi/flow-pc
+# Flow-pc
 
-一个基于 React 和 TypeScript 的流程设计器组件库。
-
-## 特性
-
-- 🎨 基于 LogicFlow 的流程设计器
-- 📦 支持 TypeScript
-- 🎯 支持流程节点自定义
-- 🔄 支持流程状态管理
-- 🎮 支持流程操作（启动、提交、删除、保存等）
-- 🎯 支持流程节点拖拽
-- 🎨 支持流程节点样式自定义
-- 🎯 支持流程节点状态管理
-- 🎨 支持流程节点面板自定义
-- 🎯 支持流程节点事件处理
+基于PC的流程引擎
 
 ## 安装
 
@@ -30,142 +17,206 @@ pnpm add @codingapi/flow-pc
 
 ## 使用
 
-### 基础用法
+### 流程设计器
 
 ```tsx
-import React from 'react';
-import { Flow } from '@codingapi/flow-pc';
+import React from "react";
+import {Flow, FlowActionType} from "@codingapi/flow-pc";
 
-const App = () => {
-  return (
-    <Flow
-      data={{
-        nodes: [],
-        edges: []
-      }}
-      actionRef={(ref) => {
-        // 获取流程数据
-        const data = ref.current?.getData();
-      }}
-    />
-  );
-};
+const FlowDesign = () => {
+    const flowActionType = React.useRef<FlowActionType>(null);
 
-export default App;
-```
+    const [schema, setSchema] = React.useState<any>(null);
 
-### 流程操作
-
-```tsx
-import React from 'react';
-import { Flow, FlowModelView } from '@codingapi/flow-pc';
-
-const App = () => {
-  const [visible, setVisible] = React.useState(false);
-
-  return (
-    <>
-      <Flow
-        data={{
-          nodes: [],
-          edges: []
-        }}
-        actionRef={(ref) => {
-          // 获取流程数据
-          const data = ref.current?.getData();
-        }}
-      />
-
-      <FlowModelView
-        visible={visible}
-        setVisible={setVisible}
-        data={{
-          nodes: [],
-          edges: []
-        }}
-      />
-    </>
-  );
-};
-
-export default App;
-```
-
-### 自定义节点
-
-```tsx
-import React from 'react';
-import { Flow } from '@codingapi/flow-pc';
-
-const CustomNode = () => {
-  return (
-    <div>自定义节点</div>
-  );
-};
-
-const App = () => {
-  return (
-    <Flow
-      data={{
-        nodes: [],
-        edges: []
-      }}
-      customNodes={{
-        custom: CustomNode
-      }}
-    />
-  );
-};
-
-export default App;
-```
-
-## API
-
-### Flow
-
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| data | 流程数据 | `LogicFlow.GraphConfigData` | - |
-| actionRef | 操作引用 | `React.Ref<FlowActionType>` | - |
-| edgeType | 边的类型 | `'polyline' \| 'bezier' \| 'line'` | `'polyline'` |
-| customNodes | 自定义节点 | `Record<string, React.ComponentType>` | - |
-
-### FlowModelView
-
-| 参数 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| visible | 是否可见 | `boolean` | - |
-| setVisible | 设置可见性 | `(visible: boolean) => void` | - |
-| data | 流程数据 | `LogicFlow.GraphConfigData` | - |
-
-### FlowActionType
-
-```typescript
-interface FlowActionType {
-  getData: () => LogicFlow.GraphConfigData;
+    return (
+        <>
+            <Flow
+                data={schema}
+                actionRef={flowActionType}
+            />
+        </>
+    )
 }
+
+export default FlowDesign;
 ```
 
-## 依赖
+### 流程审批
 
-- React >= 16.8.0
-- TypeScript >= 4.0.0
-- @logicflow/core >= 2.0.0
-- @logicflow/extension >= 2.0.0
-- antd >= 4.0.0
+```tsx
+import React from "react";
+import {FlowModelView} from "@codingapi/flow-pc";
+import LeaveForm from "@/pages/record/form";
+
+const FlowRecordPage = () => {
+
+    const [flowViewVisible, setFlowViewVisible] = React.useState(false);
+    const currentId = '1'
+
+    return (
+        <div>
+            <FlowModelView
+                visible={flowViewVisible}
+                setVisible={setFlowViewVisible}
+                id={currentId}
+                view={{
+                    'default': LeaveForm
+                }}
+            />
+        </div>
+    );
+};
+
+export default FlowRecordPage;
+```
+
+### 自定义视图拓展
+
+* 自定义延期提醒
+```tsx
+ import React from "react";
+import {ModalForm, ProFormDigit} from "@ant-design/pro-components";
+import {PostponedFormProps} from "@codingapi/ui-framework";
+
+
+const PostponedFormView:React.FC<PostponedFormProps> = (props)=>{
+
+    return (
+        <ModalForm
+            title={"延期调整"}
+            open={props.visible}
+            modalProps={{
+                onCancel: () => {
+                    props.setVisible(false);
+                },
+                onClose: () => {
+                    props.setVisible(false);
+                },
+                destroyOnClose:true,
+            }}
+            onFinish={async (values) => {
+                props.onFinish(values.hours);
+            }}
+        >
+            <ProFormDigit
+                name={"hours"}
+                label={"延期时间"}
+                tooltip={"以当前时间开始延期，延期单位为小时"}
+                addonAfter={"小时"}
+                rules={[
+                    {
+                        required: true,
+                        message: "请输入延期时间"
+                    }
+                ]}
+            />
+        </ModalForm>
+    )
+}
+
+export default PostponedFormView;
+
+```
+添加自定义视图到配置中
+```
+import * as flowApi from "@/api/flow";
+import {PostponedFormViewKey} from "@codingapi/ui-framework";
+import {ComponentBus} from "@codingapi/ui-framework";
+import {FlowApiContent,FlowApi} from "@codingapi/flow-pc";
+import PostponedFormView from "@/components/flow/PostponedFormView";
+
+ComponentBus.getInstance().registerComponent(PostponedFormViewKey,PostponedFormView);
+```
+* 自定义选人组件
+```
+import React, {useEffect} from "react";
+import {UserSelectFormProps} from "@codingapi/ui-framework";
+import {ModalForm, ProForm, ProFormSelect} from "@ant-design/pro-components";
+import {users} from "@/api/user";
+
+const UserSelectView: React.FC<UserSelectFormProps> = (props) => {
+
+    const [form] = ProForm.useForm();
+
+    const [userList, setUserList] = React.useState<any[]>([]);
+
+    useEffect(() => {
+        users().then((res) => {
+            if (res.success) {
+                const list = res.data.list.filter((item:any)=>{
+                    const specifyUserIds = props.specifyUserIds;
+                    if(specifyUserIds && specifyUserIds.length > 0){
+                        return specifyUserIds.includes(item.id);
+                    }
+                });
+                setUserList(list);
+                // 默认选中当前用户
+                form.setFieldValue("users", props.currentUserIds);
+            }
+        })
+    }, []);
+
+    return (
+        <ModalForm
+            form={form}
+            open={props.visible}
+            title={"用户选择（模拟测试）"}
+            modalProps={{
+                onCancel: () => {
+                    props.setVisible(false);
+                },
+                onClose: () => {
+                    props.setVisible(false);
+                }
+            }}
+            onFinish={async (values) => {
+                const users = values.users;
+                const selectedUsers = userList.filter((item: any) => {
+                    return users.includes(item.id);
+                });
+                props.onFinish(selectedUsers);
+                props.setVisible(false);
+            }}
+        >
+            <ProFormSelect
+                mode={"tags"}
+                name={"users"}
+                label={"用户"}
+                options={userList.map((item: any) => {
+                    return {
+                        label: item.name,
+                        value: item.id
+                    }
+                })}
+            />
+        </ModalForm>
+    )
+}
+
+export default UserSelectView;
+
+```
+然后再注册到配置中。
+
+更多的实例请参考：https://github.com/codingapi/flow-pc/tree/main/playground
 
 ## 开发
 
 ```bash
+# Install dependencies
+yarn install
 
-# 构建
+# Start development server
+yarn dev
+
+# Build for production
 yarn build
 
-# 发布
-yarn push
+# Run tests
+yarn test
 ```
+## 许可
 
-## 许可证
+Apache-2.0 © [CodingAPI](https://github.com/codingapi/flow-pc/blob/main/LICENSE)
 
-Apache-2.0 
+
