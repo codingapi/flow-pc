@@ -1,3 +1,4 @@
+[![npm](https://img.shields.io/npm/v/@codingapi/flow-pc.svg)](https://www.npmjs.com/package/@codingapi/flow-pc)
 # Flow-pc
 
 基于PC的流程引擎
