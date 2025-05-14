@@ -119,7 +119,6 @@ export default PostponedFormView;
 ```
 添加自定义视图到配置中
 ```
-import * as flowApi from "@/api/flow";
 import {PostponedFormViewKey} from "@codingapi/ui-framework";
 import {ComponentBus} from "@codingapi/ui-framework";
 import {FlowApiContent,FlowApi} from "@codingapi/flow-pc";
