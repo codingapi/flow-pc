@@ -1,15 +1,16 @@
 import React, {createContext, useEffect} from "react";
-import {FlowViewProps} from "@codingapi/ui-framework";
-import {FormInstance} from "@codingapi/ui-framework";
-import {FlowButtonClickContext} from "../domain";
-import {FlowTriggerContext} from "../domain";
-import {FlowStateContext} from "../domain";
-import {FlowEventContext} from "../domain";
-import {FlowRecordContext} from "../domain";
+import {FlowViewProps, FormInstance, ThemeConfig, ThemeProvider, ThemeProviderContext} from "@codingapi/ui-framework";
+import {
+    FlowButtonClickContext,
+    FlowEventContext,
+    FlowRecordContext,
+    FlowStateContext,
+    FlowTriggerContext
+} from "../domain";
 import {FlowReduxState, flowStore, initState, updateState} from "../store";
 import {FlowApiContent} from "../api";
 import {Provider, useDispatch, useSelector} from "react-redux";
-import {Skeleton} from "antd";
+import {ConfigProvider, Skeleton} from "antd";
 import {FlowPage} from "../components";
 import "./FlowView.scss";
 
@@ -53,7 +54,7 @@ const $FlowView: React.FC<FlowViewProps> = (props) => {
             return;
         }
         if (props.workCode) {
-            FlowApiContent.getInstance().getDetailByWorkCode( props.workCode).then(res => {
+            FlowApiContent.getInstance().getDetailByWorkCode(props.workCode).then(res => {
                 if (res && res.success) {
                     setData(res.data);
                 }
@@ -98,10 +99,17 @@ const $FlowView: React.FC<FlowViewProps> = (props) => {
 }
 
 export const FlowView: React.FC<FlowViewProps> = (props) => {
+    const themeContext = React.useContext(ThemeProviderContext);
+    const theme = themeContext?.getTheme() || {} as ThemeConfig;
+
     return (
-        <Provider store={flowStore}>
-            <$FlowView  {...props} />
-        </Provider>
+        <ThemeProvider theme={theme}>
+            <ConfigProvider theme={theme}>
+                <Provider store={flowStore}>
+                    <$FlowView  {...props} />
+                </Provider>
+            </ConfigProvider>
+        </ThemeProvider>
     )
 }
 

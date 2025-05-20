@@ -9,11 +9,12 @@ import {OverNodeConfig} from "./nodes";
 import {CirculateNodeConfig} from "./nodes";
 import {ControlLayoutPanel} from "./panel";
 import {NodeLayoutPanel} from "./panel";
-import {EdgeType} from "@codingapi/ui-framework";
+import {EdgeType, ThemeConfig, ThemeProvider, ThemeProviderContext} from "@codingapi/ui-framework";
 
 import "./index.scss";
 import {FlowPanelContext} from "./domain";
 import {FlowContext} from "./domain";
+import {ConfigProvider} from "antd";
 
 export interface FlowActionType {
     getData: () => any;
@@ -34,6 +35,9 @@ export const Flow: React.FC<FlowProps> = (props) => {
     // 流程图的边宽度
     const FLOW_EDGE_STROKE_WIDTH = 1;
 
+    const themeContext = React.useContext(ThemeProviderContext);
+    const theme = themeContext?.getTheme() || {} as ThemeConfig;
+
     const container = useRef<HTMLDivElement>(null);
     const lfRef = useRef<LogicFlow>(null);
     const edgeType = props.edgeType || 'polyline';
@@ -50,6 +54,7 @@ export const Flow: React.FC<FlowProps> = (props) => {
     }
 
     const data = props?.data || {};
+
     useEffect(() => {
         const SilentConfig = {
             isSilentMode: false,
@@ -112,12 +117,16 @@ export const Flow: React.FC<FlowProps> = (props) => {
     }, []);
 
     return (
-        <div className="flow-design">
-            <NodeLayoutPanel/>
-            <ControlLayoutPanel/>
+       <ThemeProvider theme={theme}>
+           <ConfigProvider theme={theme}>
+               <div className="flow-design">
+                   <NodeLayoutPanel/>
+                   <ControlLayoutPanel/>
 
-            <div className={"flow-view"} ref={container}/>
-        </div>
+                   <div className={"flow-view"} ref={container}/>
+               </div>
+           </ConfigProvider>
+       </ThemeProvider>
     )
 };
 
