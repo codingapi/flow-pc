@@ -23,6 +23,9 @@ const WelcomePage = () => {
                <Button onClick={()=>{
                    navigate('/record')
                }}>go record</Button>
+               <Button onClick={()=>{
+                   navigate('/leave')
+               }}>go leave</Button>
            </Space>
        </div>
     );

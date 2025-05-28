@@ -1,6 +1,6 @@
 import React from "react";
 import {FlowModelView} from "@codingapi/flow-pc";
-import LeaveForm from "@/pages/record/form";
+import {flowViews} from "@/config/flows";
 
 const FlowRecordPage = () => {
 
@@ -13,9 +13,7 @@ const FlowRecordPage = () => {
                 visible={flowViewVisible}
                 setVisible={setFlowViewVisible}
                 id={currentId}
-                view={{
-                    'default': LeaveForm
-                }}
+                view={flowViews}
             />
         </div>
     );

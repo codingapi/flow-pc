@@ -12,8 +12,8 @@ import {
 import moment from "moment";
 import {message, Tabs} from "antd";
 import "./index.scss";
-import LeaveForm from "./form";
 import {FlowModelView} from "@codingapi/flow-pc";
+import {flowViews} from "@/config/flows";
 
 const FlowRecordPage = () => {
 
@@ -315,9 +315,7 @@ const FlowRecordPage = () => {
                 visible={flowViewVisible}
                 setVisible={setFlowViewVisible}
                 id={currentId}
-                view={{
-                    'default': LeaveForm
-                }}
+                view={flowViews}
             />
 
         </PageContainer>

@@ -160,6 +160,13 @@ export const NodePanel: React.FC<NodePanelProps> = (props) => {
                     label={"是否编辑"}
                 />
 
+                <FormSwitch
+                    tooltip={"合并该节点下的待办到一条记录中"}
+                    name={"mergeable"}
+                    hidden={props.type !== 'node'}
+                    label={"是否合并"}
+                />
+
                 <FormInput
                     name={"titleGenerator"}
                     label={"自定义标题"}
