@@ -20,6 +20,7 @@ type StartProperties ={
     timeout:number;
     settingVisible?: boolean;
     state?: NodeState;
+    records?: any[];
 }
 
 interface StartProps {
@@ -34,6 +35,9 @@ export const StartView: React.FC<StartProps> = (props) => {
     const [visible, setVisible] = React.useState(false);
 
     const state = props.properties?.state;
+    const records = props.properties?.records;
+    console.log('records:',records);
+    console.log('state:',state);
 
     return (
         <div className="flow-node start-node">
@@ -100,6 +104,7 @@ class StartNode extends HtmlNode {
         const {properties} = this.props.model as HtmlNodeModel<StartProperties>;
         const div = document.createElement('div');
         const settingVisible = properties.settingVisible !== false;
+        console.log('StartNode properties:', properties);
 
         ReactDOM.createRoot(div).render(
               <StartView

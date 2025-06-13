@@ -71,6 +71,7 @@ export const FlowChart: React.FC<FlowChartProps> = (props) => {
         lfRef.current.register(OverNodeConfig);
         lfRef.current.register(CirculateNodeConfig);
         lfRef.current.render(flowSchema);
+        console.log('flowSchema:{}', flowSchema);
 
         setTimeout(() => {
             lfRef.current?.getSnapshotBlob().then((blob: any) => {

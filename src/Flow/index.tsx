@@ -102,6 +102,14 @@ export const Flow: React.FC<FlowProps> = (props) => {
                 stroke: FLOW_EDGE_COLOR,
                 strokeWidth: FLOW_EDGE_STROKE_WIDTH,
             },
+            edgeText:{
+                textWidth: 100,
+                overflowMode: "default",
+                fontSize: 12,
+                background: {
+                    fill: FLOW_BACKGROUND_COLOR,
+                },
+            }
         });
 
         flowPanelContext.register(StartNodeConfig);

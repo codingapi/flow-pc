@@ -312,6 +312,9 @@ export class FlowPanelContext {
                 const edge = edges[index];
                 if (edge.id === edgeId) {
                     edge.properties.name = name;
+                    edge.text = {
+                        value: name,
+                    }
                     this.render(data);
                 }
             }
