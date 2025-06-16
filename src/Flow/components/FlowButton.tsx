@@ -21,6 +21,32 @@ export const FlowButton:React.FC<FlowHeaderProps> = (props) => {
 
     const style = contentHiddenVisible ? {"display":"none"} : {};
 
+    if(flowRecordContext?.isWithdraw()){
+        return (
+            <div className={"flow-buttons-content"} style={style}>
+                <Button
+                    color={"default"}
+                    className={"flow-buttons-item"}
+                    onClick={() => {
+                        flowButtonClickContext?.handlerRecall();
+                    }}
+                >
+                   撤回
+                </Button>
+
+                <Button
+                    color={"default"}
+                    className={"flow-buttons-item"}
+                    onClick={() => {
+                        props.setVisible(false);
+                    }}
+                >
+                    关闭
+                </Button>
+            </div>
+        )
+    }
+
     if(flowRecordContext?.isEditable()){
         return (
             <div className={"flow-buttons-content"} style={style}>
