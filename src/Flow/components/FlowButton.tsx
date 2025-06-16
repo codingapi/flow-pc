@@ -2,7 +2,7 @@ import React, {useContext} from "react";
 import {FlowViewReactContext} from "../view";
 import {useSelector} from "react-redux";
 import {FlowReduxState} from "../store";
-import {Button} from "antd";
+import {Button, Popconfirm} from "antd";
 
 interface FlowHeaderProps{
     setVisible:(visible:boolean)=>void;
@@ -24,15 +24,20 @@ export const FlowButton:React.FC<FlowHeaderProps> = (props) => {
     if(flowRecordContext?.isWithdraw()){
         return (
             <div className={"flow-buttons-content"} style={style}>
-                <Button
-                    color={"default"}
-                    className={"flow-buttons-item"}
-                    onClick={() => {
+
+                <Popconfirm
+                    title={"确认要撤回流程吗？"}
+                    onConfirm={()=>{
                         flowButtonClickContext?.handlerRecall();
                     }}
                 >
-                   撤回
-                </Button>
+                    <Button
+                        color={"default"}
+                        className={"flow-buttons-item"}
+                    >
+                        撤回
+                    </Button>
+                </Popconfirm>
 
                 <Button
                     color={"default"}
