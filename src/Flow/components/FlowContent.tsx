@@ -1,14 +1,13 @@
 import React, {useContext, useEffect} from "react";
-import {FlowFormViewProps} from "@codingapi/ui-framework";
+import {ComponentBus, FlowFormViewProps} from "@codingapi/ui-framework";
 import {FlowViewReactContext} from "../view";
 import {useSelector} from "react-redux";
 import {FlowReduxState} from "../store";
-import {Divider, Tabs, TabsProps} from "antd";
-import {FlowFormOpinion} from "./FlowFormOpinion";
-import {FlowHistory} from "./FlowHistory";
-import {FlowOpinion} from "./FlowOpinion";
-import {FlowChart} from "./FlowChart";
-import {FlowHistoryLine} from "./FlowHistoryLine";
+import {Tabs, TabsProps} from "antd";
+import {FlowViewChartPropsKey, FlowViewOpinionPropsKey, FlowViewRecordPropsKey} from "@codingapi/ui-framework";
+import DefaultFlowViewOpinionView from "../plugins/DefaultFlowViewOpinionView";
+import DefaultFlowViewRecordView from "../plugins/DefaultFlowViewRecordView";
+import DefaultFlowViewChartView from "../plugins/DefaultFlowViewChartView";
 
 export const FlowContent = () => {
     const flowViewReactContext = useContext(FlowViewReactContext);
@@ -24,6 +23,10 @@ export const FlowContent = () => {
     const dataVersion = useSelector((state: FlowReduxState) => state.flow.dataVersion);
     const contentHiddenVisible = useSelector((state: FlowReduxState) => state.flow.contentHiddenVisible);
     const [currentTab, setCurrentTab] = React.useState('detail');
+
+    const FlowViewOpinionView = ComponentBus.getInstance().getComponent(FlowViewOpinionPropsKey,DefaultFlowViewOpinionView)
+    const FlowViewRecordView = ComponentBus.getInstance().getComponent(FlowViewRecordPropsKey,DefaultFlowViewRecordView)
+    const FlowViewChartView = ComponentBus.getInstance().getComponent(FlowViewChartPropsKey,DefaultFlowViewChartView)
 
     useEffect(() => {
         if (!flowRecordContext?.isEditable()) {
@@ -69,26 +72,18 @@ export const FlowContent = () => {
                         />
                     )}
 
-                    {opinionVisible && (
-                        <FlowFormOpinion/>
+                    {opinionVisible && FlowViewOpinionView && (
+                        <FlowViewOpinionView/>
                     )}
                 </>
             )}
 
-            {currentTab ==='record' && (
-                <>
-                    <FlowHistory/>
-                    <Divider>审批记录</Divider>
-                    <FlowOpinion/>
-                </>
+            {currentTab ==='record' && FlowViewRecordView && (
+                <FlowViewRecordView/>
             )}
 
-            {currentTab ==='chart' && (
-                <>
-                    <FlowChart/>
-                    <Divider>流转历史</Divider>
-                    <FlowHistoryLine/>
-                </>
+            {currentTab ==='chart' && FlowViewChartView && (
+                <FlowViewChartView/>
             )}
         </div>
     )

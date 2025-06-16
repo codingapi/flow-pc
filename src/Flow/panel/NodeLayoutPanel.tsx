@@ -26,7 +26,7 @@ export const NodeLayoutPanel = () => {
                 editable: true,
                 mergeable:false,
                 titleGenerator: GroovyScript.defaultTitleGenerator,
-                errTrigger: '',
+                errTrigger: GroovyScript.defaultErrTrigger,
                 approvalType: 'UN_SIGN',
                 timeout: 0
             }
@@ -43,7 +43,7 @@ export const NodeLayoutPanel = () => {
                 editable: true,
                 mergeable:false,
                 titleGenerator: GroovyScript.defaultTitleGenerator,
-                errTrigger: '',
+                errTrigger: GroovyScript.defaultErrTrigger,
                 approvalType: 'SIGN',
                 timeout: 0
             }
@@ -60,7 +60,7 @@ export const NodeLayoutPanel = () => {
                 editable: true,
                 mergeable:false,
                 titleGenerator: GroovyScript.defaultTitleGenerator,
-                errTrigger: '',
+                errTrigger: GroovyScript.defaultErrTrigger,
                 approvalType: 'UN_SIGN',
                 timeout: 0
             }
@@ -77,7 +77,7 @@ export const NodeLayoutPanel = () => {
                 editable: true,
                 mergeable:false,
                 titleGenerator: GroovyScript.defaultTitleGenerator,
-                errTrigger: '',
+                errTrigger: GroovyScript.defaultErrTrigger,
                 approvalType: 'CIRCULATE',
                 timeout: 0
             }

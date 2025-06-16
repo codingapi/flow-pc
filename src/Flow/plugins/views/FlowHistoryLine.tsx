@@ -1,5 +1,5 @@
 import React, {useContext} from "react";
-import {FlowViewReactContext} from "../view";
+import {FlowViewReactContext} from "../../view";
 import moment from "moment";
 import {Tag} from "antd";
 
@@ -15,7 +15,6 @@ const recodeTypeConvert = (data: any) => {
     }
     return '';
 }
-
 
 export const FlowHistoryLine = () => {
     const flowViewReactContext = useContext(FlowViewReactContext);

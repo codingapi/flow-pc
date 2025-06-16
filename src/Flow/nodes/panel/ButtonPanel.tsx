@@ -2,10 +2,12 @@ import React from "react";
 import {ActionType, ProColumns, ProTable} from "@ant-design/pro-components";
 import {Button, ColorPicker, Modal, Popconfirm, Space} from "antd";
 import {ScriptModal} from "./ScriptModal";
-import {EyeOutlined} from "@ant-design/icons";
+import {EyeOutlined, SettingOutlined} from "@ant-design/icons";
 import {FlowContext} from "../../domain/FlowContext";
-import {Form,FormInput,FormSelect,FormColor} from "@codingapi/form-pc";
-import {ValidateUtils} from "@codingapi/ui-framework";
+import {Form, FormColor, FormInput, FormSelect} from "@codingapi/form-pc";
+import {ComponentBus, ValidateUtils} from "@codingapi/ui-framework";
+import {FlowButtonCustomApiFormProps, FlowButtonCustomApiFormPropsKey} from "@codingapi/ui-framework";
+import DefaultFlowButtonCustomApiFormView from "../../plugins/DefaultFlowButtonCustomApiFormView";
 
 interface ButtonPanelProps {
     id: string;
@@ -18,11 +20,15 @@ export const ButtonPanel: React.FC<ButtonPanelProps> = (props) => {
     const form = Form.useForm();
     const groovyForm = Form.useForm();
 
-    const [visible, setVisible] = React.useState(false);
+    const [scriptViewVisible, setScriptViewVisible] = React.useState(false);
 
     const [scriptVisible, setScriptVisible] = React.useState(false);
 
     const [type, setType] = React.useState<string>();
+    const [customApiViewVisible, setCustomApiViewVisible] = React.useState(false);
+
+    // 自定义接口
+    const FlowButtonCustomApiView = ComponentBus.getInstance().getComponent<FlowButtonCustomApiFormProps>(FlowButtonCustomApiFormPropsKey,DefaultFlowButtonCustomApiFormView);
 
     const flowContext = FlowContext.getInstance();
 
@@ -70,7 +76,7 @@ export const ButtonPanel: React.FC<ButtonPanelProps> = (props) => {
                             groovyForm.reset();
                             form.setFieldsValue(record);
                             setType(record.type);
-                            setVisible(true);
+                            setScriptViewVisible(true);
                         }}
                     >
                         修改
@@ -111,7 +117,7 @@ export const ButtonPanel: React.FC<ButtonPanelProps> = (props) => {
                             type={"primary"}
                             onClick={() => {
                                 groovyForm.reset();
-                                setVisible(true);
+                                setScriptViewVisible(true);
                             }}
                         >添加按钮</Button>
                     ]
@@ -120,14 +126,14 @@ export const ButtonPanel: React.FC<ButtonPanelProps> = (props) => {
 
             <Modal
                 title={"添加节点按钮"}
-                open={visible}
-                onCancel={()=>{
-                    setVisible(false);
+                open={scriptViewVisible}
+                onCancel={() => {
+                    setScriptViewVisible(false);
                 }}
-                onClose={()=>{
-                    setVisible(false);
+                onClose={() => {
+                    setScriptViewVisible(false);
                 }}
-                onOk={async ()=>{
+                onOk={async () => {
                     await form.submit();
                 }}
                 destroyOnClose={true}
@@ -138,7 +144,7 @@ export const ButtonPanel: React.FC<ButtonPanelProps> = (props) => {
                     form={form}
                     onFinish={async (values) => {
                         flowContext.getFlowPanelContext()?.updateButton(props.id, values as any);
-                        setVisible(false);
+                        setScriptViewVisible(false);
                         actionRef.current?.reload();
                     }}
                 >
@@ -157,29 +163,38 @@ export const ButtonPanel: React.FC<ButtonPanelProps> = (props) => {
                     />
 
                     <FormColor
-                        name={["style","background"]}
+                        name={["style", "background"]}
                         label={"按钮颜色"}
                         placeholder={"请输入按钮颜色"}
                     />
 
                     <FormSelect
                         name={"type"}
-                        label={(
+                        label={"按钮类型"}
+                        addonAfter={(
                             <Space>
-                                按钮类型
-
                                 {type === 'CUSTOM' && (
-                                    <EyeOutlined
-                                        onClick={() => {
-                                            groovyForm.reset();
-                                            const script = form.getFieldValue('groovy') || 'def run(content){\n  //你的代码 \n  return content.createMessageResult(\'我是自定义标题\');\n}';
-                                            groovyForm.setFieldsValue({
-                                                'script': script
-                                            });
-                                            setScriptVisible(!scriptVisible);
-                                        }}/>
-                                )}
+                                    <>
+                                        <Button
+                                            icon={<SettingOutlined/>}
+                                            onClick={() => {
+                                                setCustomApiViewVisible(true);
+                                            }}
+                                        >
+                                            接口配置
+                                        </Button>
 
+                                        <EyeOutlined
+                                            onClick={() => {
+                                                groovyForm.reset();
+                                                const script = form.getFieldValue('groovy') || 'def run(content){\n  //你的代码 \n  return content.createMessageResult(\'我是自定义标题\');\n}';
+                                                groovyForm.setFieldsValue({
+                                                    'script': script
+                                                });
+                                                setScriptVisible(!scriptVisible);
+                                            }}/>
+                                    </>
+                                )}
                             </Space>
                         )}
                         placeholder={"请输入按钮类型"}
@@ -220,6 +235,19 @@ export const ButtonPanel: React.FC<ButtonPanelProps> = (props) => {
                         form={groovyForm}
                         setVisible={setScriptVisible}
                         visible={scriptVisible}/>
+
+                    {FlowButtonCustomApiView && (
+                        <FlowButtonCustomApiView
+                            visible={customApiViewVisible}
+                            setVisible={setCustomApiViewVisible}
+                            onFinish={(script) => {
+                                form.setFieldsValue({
+                                    'groovy': script
+                                });
+                            }}
+                            currentScript={form.getFieldValue('groovy')}
+                        />
+                    )}
 
                 </Form>
             </Modal>

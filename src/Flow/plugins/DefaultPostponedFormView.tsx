@@ -3,8 +3,7 @@ import {PostponedFormProps, ValidateUtils} from "@codingapi/ui-framework";
 import {Modal} from "antd";
 import {Form, FormInput} from "@codingapi/form-pc";
 
-
-export const PostponedFormView:React.FC<PostponedFormProps> = (props)=>{
+const DefaultPostponedFormView:React.FC<PostponedFormProps> = (props)=>{
 
     const formInstance = Form.useForm();
 
@@ -38,3 +37,4 @@ export const PostponedFormView:React.FC<PostponedFormProps> = (props)=>{
     )
 }
 
+export default DefaultPostponedFormView;

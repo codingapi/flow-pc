@@ -2,6 +2,7 @@ export class GroovyScript {
 
     public static defaultOutTrigger = "def run(content) {return true;}";
     public static defaultTitleGenerator = "def run(content){ return content.getCurrentOperator().getName() + '-' + content.getFlowWork().getTitle() + '-' + content.getFlowNode().getName();}";
+    public static defaultErrTrigger = "";
 
     public static anyOperatorMatcher="def run(content) {return [content.getCurrentOperator().getUserId()];}";
     public static creatorOperatorMatcher="def run(content) {return [content.getCreateOperator().getUserId()];}";
@@ -32,7 +33,7 @@ export class GroovyScript {
     }
 
     static errTriggerType(errTrigger: string) {
-        if (errTrigger === GroovyScript.defaultOutTrigger) {
+        if (errTrigger === GroovyScript.defaultErrTrigger) {
             return "default";
         } else {
             return "custom";

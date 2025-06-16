@@ -1,10 +1,13 @@
 import React from "react";
 import {ActionType, ProTable} from "@ant-design/pro-components";
 import {Input, InputNumber, Popconfirm, Space} from "antd";
-import {CheckOutlined, EditOutlined, SettingOutlined} from "@ant-design/icons";
+import {CheckOutlined, EditOutlined, EyeOutlined, SettingOutlined} from "@ant-design/icons";
 import {ScriptModal} from "./ScriptModal";
 import {FlowContext} from "../../domain/FlowContext";
 import {Form} from "@codingapi/form-pc";
+import {ComponentBus} from "@codingapi/ui-framework";
+import {FlowEdgeOutTriggerFormProps, FlowEdgeOutTriggerFormPropsKey} from "@codingapi/ui-framework";
+import DefaultFlowEdgeOutTriggerFormView from "../../plugins/DefaultFlowEdgeOutTriggerFormView";
 
 interface EdgePanelProps {
     id?: string;
@@ -13,13 +16,18 @@ interface EdgePanelProps {
 
 export const EdgePanel: React.FC<EdgePanelProps> = (props) => {
 
-    const [visible, setVisible] = React.useState(false);
+    const [scriptViewVisible, setScriptViewVisible] = React.useState(false);
+    const [customOutTriggerViewVisible, setCustomOutTriggerViewVisible] = React.useState(false);
 
     const [name, setName] = React.useState("");
     const [order, setOrder] = React.useState(0);
 
     const groovyForm = Form.useForm();
     const actionRef = React.useRef<ActionType>();
+
+    // 自定义出口设置
+    const FlowEdgeOutTriggerView = ComponentBus.getInstance().getComponent<FlowEdgeOutTriggerFormProps>(FlowEdgeOutTriggerFormPropsKey,DefaultFlowEdgeOutTriggerFormView);
+
 
     const flowContext = FlowContext.getInstance();
 
@@ -96,12 +104,28 @@ export const EdgePanel: React.FC<EdgePanelProps> = (props) => {
                 return (
                     <Space>
                         <SettingOutlined
+                            onClick={()=>{
+                                setCustomOutTriggerViewVisible(true);
+                            }}
+                        />
+                        {record.outTrigger ? (<CheckOutlined/>) : null}
+                        <EyeOutlined
                             onClick={() => {
                                 groovyForm.setFieldValue("script", record.outTrigger);
                                 groovyForm.setFieldValue("type", record.id);
-                                setVisible(true);
+                                setScriptViewVisible(true);
                             }}/>
-                        {record.outTrigger ? (<CheckOutlined/>) : null}
+
+                        {FlowEdgeOutTriggerView && (
+                            <FlowEdgeOutTriggerView
+                                visible={customOutTriggerViewVisible}
+                                setVisible={setCustomOutTriggerViewVisible}
+                                currentScript={record.outTrigger}
+                                onFinish={(script: string) => {
+                                    handlerChangeOutTrigger(record.id, script);
+                                }}
+                            />
+                        )}
                     </Space>
                 )
             }
@@ -114,20 +138,16 @@ export const EdgePanel: React.FC<EdgePanelProps> = (props) => {
             render: (text: string, record: any) => {
                 return (
 
-                    <Space>
+                    <a>
                         <Popconfirm
                             title={`确认修改为${text ? '否' : '是'}吗？`}
                             onConfirm={() => {
                                 handlerChangeBack(record.id, !text);
                             }}
                         >
-                            <SettingOutlined/>
+                            {text ? '是' : '否'}
                         </Popconfirm>
-
-                        {text ? '是' : '否'}
-                    </Space>
-
-
+                    </a>
                 )
             }
         },
@@ -151,7 +171,7 @@ export const EdgePanel: React.FC<EdgePanelProps> = (props) => {
                                 handlerChangeOrder(record.id);
                             }}
                         >
-                            <SettingOutlined/>
+                            <EditOutlined/>
                         </Popconfirm>
 
                         {text}
@@ -187,8 +207,10 @@ export const EdgePanel: React.FC<EdgePanelProps> = (props) => {
                     handlerChangeOutTrigger(values.type, values.script);
                 }}
                 form={groovyForm}
-                setVisible={setVisible}
-                visible={visible}/>
+                setVisible={setScriptViewVisible}
+                visible={scriptViewVisible}/>
+
+
         </>
     )
 }

@@ -1,11 +1,24 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {Button, Divider, Space} from "antd";
 import {EyeOutlined, SettingOutlined} from "@ant-design/icons";
 import {GroovyScript} from "../../utils";
 import {ScriptModal} from "./ScriptModal";
-import {ValidateUtils,ComponentBus,FormInstance} from "@codingapi/ui-framework";
-import {FormSelect,FormSwitch,FormInput,Form} from "@codingapi/form-pc";
-import {UserSelectFormProps, UserSelectFormViewKey} from "@codingapi/ui-framework";
+import {
+    ComponentBus,
+    FormInstance,
+    UserSelectFormProps,
+    UserSelectFormViewKey,
+    ValidateUtils
+} from "@codingapi/ui-framework";
+import {Form, FormInput, FormSelect, FormSwitch} from "@codingapi/form-pc";
+import {
+    FlowNodeErrorTriggerFormProps,
+    FlowNodeErrorTriggerFormPropsKey,
+    FlowNodeTitleFormProps,
+    FlowNodeTitleFormPropsKey
+} from "@codingapi/ui-framework";
+import DefaultFlowNodeErrorTriggerFormView from "../../plugins/DefaultFlowNodeErrorTriggerFormView";
+import DefaultFlowNodeTitleFormView from "../../plugins/DefaultFlowNodeTitleFormView";
 
 interface NodePanelProps {
     id?: string,
@@ -19,27 +32,43 @@ export const NodePanel: React.FC<NodePanelProps> = (props) => {
 
     const groovyForm = Form.useForm();
 
-    const [visible, setVisible] = React.useState(false);
+    const [scriptViewVisible, setScriptViewVisible] = React.useState(false);
+    const [customTitleVisible, setCustomTitleVisible] = React.useState(false);
+    const [customOperatorVisible, setCustomOperatorVisible] = React.useState(false);
+    const [customErrTriggerVisible, setCustomErrTriggerVisible] = React.useState(false);
 
-    const [userSelectVisible, setUserSelectVisible] = React.useState(false);
-
-    const [operatorMatcherType, setOperatorMatcherType] = React.useState(props.data?.operatorMatcherType);
+    const [customTitleViewVisible, setCustomTitleViewVisible] = React.useState(false);
+    const [customOperatorViewVisible, setCustomOperatorViewVisible] = React.useState(false);
+    const [customErrTriggerViewVisible, setCustomErrTriggerViewVisible] = React.useState(false);
 
     // 用户选人视图
     const UserSelectView = ComponentBus.getInstance().getComponent<UserSelectFormProps>(UserSelectFormViewKey);
+
+    // 异常处理视图
+    const FlowNodeErrorTriggerFormView = ComponentBus.getInstance().getComponent<FlowNodeErrorTriggerFormProps>(FlowNodeErrorTriggerFormPropsKey,DefaultFlowNodeErrorTriggerFormView);
+
+    // 标题生成视图
+    const FlowNodeTitleFormView = ComponentBus.getInstance().getComponent<FlowNodeTitleFormProps>(FlowNodeTitleFormPropsKey,DefaultFlowNodeTitleFormView);
+
+    useEffect(()=>{
+        props.form.reset();
+        props.form.setFieldsValue({
+            ...props.data,
+            operatorMatcherType: GroovyScript.operatorMatcherType(props.data?.operatorMatcher),
+            errTriggerType: GroovyScript.errTriggerType(props.data?.errTrigger),
+            titleGeneratorType: GroovyScript.titleGeneratorType(props.data?.titleGenerator),
+        });
+        setCustomOperatorVisible(GroovyScript.operatorMatcherType(props.data?.operatorMatcher) ==='custom');
+        setCustomTitleVisible(GroovyScript.titleGeneratorType(props.data?.titleGenerator) === 'custom');
+        setCustomErrTriggerVisible(GroovyScript.errTriggerType(props.data?.errTrigger)==='custom');
+    }, []);
 
     return (
         <>
             <Form
                 form={props.form}
-                initialValues={{
-                    ...props.data,
-                    operatorMatcherType: GroovyScript.operatorMatcherType(props.data?.operatorMatcher),
-                    errTriggerType: GroovyScript.errTriggerType(props.data?.errTrigger),
-                    titleGeneratorType: GroovyScript.titleGeneratorType(props.data?.titleGenerator),
-                }}
                 layout={"vertical"}
-                onFinish={async (values)=>{
+                onFinish={async (values) => {
                     props.onFinish(values);
                 }}
             >
@@ -116,18 +145,22 @@ export const NodePanel: React.FC<NodePanelProps> = (props) => {
                         },
                     ]}
                     onChange={(value) => {
-                        setOperatorMatcherType(value as string);
                         props.form.setFieldsValue({
                             operatorMatcher: GroovyScript.operatorMatcher(value as string)
-                        })
+                        });
+                        if (value === "custom") {
+                            setCustomOperatorVisible(true);
+                        } else {
+                            setCustomOperatorVisible(false);
+                        }
                     }}
                     addonAfter={(
                         <Space>
-                            {operatorMatcherType==='custom' && (
+                            {customOperatorVisible && (
                                 <Button
                                     icon={<SettingOutlined/>}
                                     onClick={() => {
-                                        setUserSelectVisible(true);
+                                        setCustomOperatorViewVisible(true);
                                     }}
                                 >
                                     选择人员
@@ -139,7 +172,7 @@ export const NodePanel: React.FC<NodePanelProps> = (props) => {
                                     const value = props.form.getFieldValue("operatorMatcher");
                                     groovyForm.setFieldValue("type", "operatorMatcher");
                                     groovyForm.setFieldValue("script", value);
-                                    setVisible(true);
+                                    setScriptViewVisible(true);
                                 }}/>
 
                         </Space>
@@ -193,15 +226,32 @@ export const NodePanel: React.FC<NodePanelProps> = (props) => {
                                 titleGenerator: GroovyScript.defaultTitleGenerator
                             })
                         }
+                        if (value === 'custom') {
+                            setCustomTitleVisible(true);
+                        } else {
+                            setCustomTitleVisible(false);
+                        }
                     }}
                     addonAfter={(
-                        <EyeOutlined
-                            onClick={() => {
-                                const value = props.form.getFieldValue("titleGenerator");
-                                groovyForm.setFieldValue("type", "titleGenerator");
-                                groovyForm.setFieldValue("script", value);
-                                setVisible(true);
-                            }}/>
+                        <Space>
+                            {customTitleVisible && (
+                                <Button
+                                    icon={<SettingOutlined/>}
+                                    onClick={() => {
+                                        setCustomTitleViewVisible(true);
+                                    }}
+                                >
+                                    配置标题
+                                </Button>
+                            )}
+                            <EyeOutlined
+                                onClick={() => {
+                                    const value = props.form.getFieldValue("titleGenerator");
+                                    groovyForm.setFieldValue("type", "titleGenerator");
+                                    groovyForm.setFieldValue("script", value);
+                                    setScriptViewVisible(true);
+                                }}/>
+                        </Space>
                     )}
                 />
 
@@ -232,18 +282,35 @@ export const NodePanel: React.FC<NodePanelProps> = (props) => {
                     onChange={(value) => {
                         if (value === "default") {
                             props.form.setFieldsValue({
-                                errTrigger: GroovyScript.defaultOutTrigger
+                                errTrigger: GroovyScript.defaultErrTrigger
                             })
+                        }
+                        if (value === 'custom') {
+                            setCustomErrTriggerVisible(true);
+                        } else {
+                            setCustomErrTriggerVisible(false);
                         }
                     }}
                     addonAfter={(
-                        <EyeOutlined
-                            onClick={() => {
-                                const value = props.form.getFieldValue("errTrigger");
-                                groovyForm.setFieldValue("type", "errTrigger");
-                                groovyForm.setFieldValue("script", value);
-                                setVisible(true);
-                            }}/>
+                        <Space>
+                            {customErrTriggerVisible && (
+                                <Button
+                                    icon={<SettingOutlined/>}
+                                    onClick={() => {
+                                        setCustomErrTriggerViewVisible(true);
+                                    }}
+                                >
+                                    配置异常处理
+                                </Button>
+                            )}
+                            <EyeOutlined
+                                onClick={() => {
+                                    const value = props.form.getFieldValue("errTrigger");
+                                    groovyForm.setFieldValue("type", "errTrigger");
+                                    groovyForm.setFieldValue("script", value);
+                                    setScriptViewVisible(true);
+                                }}/>
+                        </Space>
                     )}
                 />
 
@@ -257,21 +324,47 @@ export const NodePanel: React.FC<NodePanelProps> = (props) => {
                     });
                 }}
                 form={groovyForm}
-                setVisible={setVisible}
-                visible={visible}/>
+                setVisible={setScriptViewVisible}
+                visible={scriptViewVisible}/>
 
             {UserSelectView && (
                 <UserSelectView
-                    visible={userSelectVisible}
-                    setVisible={setUserSelectVisible}
+                    visible={customOperatorViewVisible}
+                    setVisible={setCustomOperatorViewVisible}
                     userSelectType={"users"}
                     specifyUserIds={GroovyScript.getOperatorUsers(props.form.getFieldValue("operatorMatcher"))}
                     multiple={true}
                     onFinish={(values) => {
-                        setUserSelectVisible(false);
+                        setCustomOperatorViewVisible(false);
                         const script = GroovyScript.specifyOperatorMatcher.replaceAll("%s", values.map((item: any) => item.id).join(","));
                         props.form.setFieldsValue({
                             operatorMatcher: script
+                        });
+                    }}
+                />
+            )}
+
+            {FlowNodeTitleFormView && (
+                <FlowNodeTitleFormView
+                    visible={customTitleViewVisible}
+                    setVisible={setCustomTitleViewVisible}
+                    currentScript={props.form.getFieldValue("titleGenerator")}
+                    onFinish={(script) => {
+                        props.form.setFieldsValue({
+                            titleGenerator: script
+                        });
+                    }}
+                />
+            )}
+
+            {FlowNodeErrorTriggerFormView && (
+                <FlowNodeErrorTriggerFormView
+                    visible={customErrTriggerViewVisible}
+                    setVisible={setCustomErrTriggerViewVisible}
+                    currentScript={props.form.getFieldValue("errTrigger")}
+                    onFinish={(script) => {
+                        props.form.setFieldsValue({
+                            errTrigger: script
                         });
                     }}
                 />

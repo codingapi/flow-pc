@@ -54,5 +54,4 @@ class DefaultFlowApiImpl implements FlowApi{
 }
 
 FlowApiContent.getInstance().registerFlowApi(new DefaultFlowApiImpl());
-
 console.log('register flow api');
