@@ -79,6 +79,7 @@ export class FlowRecordContext {
         return this.data.flowRecord;
     }
 
+    // 获取当前节点的历史记录
     getHistoryRecordsByNodeCode = (code: string) => {
         const historyRecords = this.data.historyRecords || [];
         return historyRecords.filter((item: any) => item.nodeCode === code);

@@ -35,9 +35,6 @@ export const StartView: React.FC<StartProps> = (props) => {
     const [visible, setVisible] = React.useState(false);
 
     const state = props.properties?.state;
-    const records = props.properties?.records;
-    console.log('records:',records);
-    console.log('state:',state);
 
     return (
         <div className="flow-node start-node">
