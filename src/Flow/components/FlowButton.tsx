@@ -21,6 +21,25 @@ export const FlowButton:React.FC<FlowHeaderProps> = (props) => {
 
     const style = contentHiddenVisible ? {"display":"none"} : {};
 
+    const dangerTypes = ['REMOVE', 'VOIDED'];
+
+    if(flowRecordContext?.isFlowManager()){
+        if(!buttons.find(item=> item.id === 'back')) {
+            buttons.push({
+                id: 'back',
+                name: '退回流程',
+                type: 'BACK',
+            } as any);
+        }
+        if(!buttons.find(item=> item.id === 'voided')) {
+            buttons.push({
+                id: 'voided',
+                name: '作废流程',
+                type: 'VOIDED',
+            } as any);
+        }
+    }
+
     if(flowRecordContext?.isWithdraw()){
         return (
             <div className={"flow-buttons-content"} style={style}>
@@ -32,6 +51,7 @@ export const FlowButton:React.FC<FlowHeaderProps> = (props) => {
                     }}
                 >
                     <Button
+                        loading={requestLoading}
                         color={"default"}
                         className={"flow-buttons-item"}
                     >
@@ -57,19 +77,39 @@ export const FlowButton:React.FC<FlowHeaderProps> = (props) => {
             <div className={"flow-buttons-content"} style={style}>
                 {buttons.map((item:any) => {
                     const style = item.style && JSON.parse(item.style) || {};
-                    return (
-                        <Button
-                            loading={requestLoading}
-                            key={item.id}
-                            className={"flow-buttons-item"}
-                            style={{
-                                ...style
-                            }}
-                            onClick={() => {
-                                flowButtonClickContext?.handlerClick(item);
-                            }}
-                        >{item.name}</Button>
-                    )
+                    if(dangerTypes.includes(item.type)) {
+                        return (
+                            <Popconfirm
+                                key={item.id}
+                                title={`确认要执行 ${item.name} 操作吗？`}
+                                onConfirm={() => {
+                                    flowButtonClickContext?.handlerClick(item);
+                                }}
+                            >
+                                <Button
+                                    loading={requestLoading}
+                                    className={"flow-buttons-item"}
+                                    style={{
+                                        ...style
+                                    }}
+                                >{item.name}</Button>
+                            </Popconfirm>
+                        )
+                    }else {
+                        return (
+                            <Button
+                                loading={requestLoading}
+                                key={item.id}
+                                className={"flow-buttons-item"}
+                                style={{
+                                    ...style
+                                }}
+                                onClick={() => {
+                                    flowButtonClickContext?.handlerClick(item);
+                                }}
+                            >{item.name}</Button>
+                        )
+                    }
                 })}
 
                 <Button

@@ -189,6 +189,23 @@ export class FlowButtonClickContext {
     }
 
     /**
+     * 触发作废流程
+     */
+    handlerVoided(){
+        if (this.flowStateContext?.hasRecordId()) {
+            this.flowEventContext?.voidedFlow(() => {
+                this.flowStateContext?.setResult({
+                    state: 'success',
+                    closeable: true,
+                    title: '流程已作废.',
+                });
+            });
+        } else {
+            message.info('流程尚未发起，无法删除').then();
+        }
+    }
+
+    /**
      * 触发催办动作
      */
     handlerUrge(){
@@ -207,6 +224,17 @@ export class FlowButtonClickContext {
     handlerPostponed(){
         if (this.flowStateContext?.hasRecordId()) {
             this.flowStateContext?.setPostponedVisible(true);
+        }else {
+            message.info('流程尚未发起，无法操作').then();
+        }
+    }
+
+    /**
+     * 触发退回节点动作
+     */
+    handlerBackNode(){
+        if (this.flowStateContext?.hasRecordId()) {
+            this.flowStateContext?.setBackNodeVisible(true);
         }else {
             message.info('流程尚未发起，无法操作').then();
         }
@@ -325,6 +353,12 @@ export class FlowButtonClickContext {
 
         if (button.type === 'VIEW') {
             this.handlerView(button.eventKey);
+        }
+        if (button.type === 'VOIDED') {
+            this.handlerVoided();
+        }
+        if (button.type === 'BACK') {
+            this.handlerBackNode();
         }
     }
 }
