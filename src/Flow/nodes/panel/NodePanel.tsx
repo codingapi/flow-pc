@@ -75,245 +75,287 @@ export const NodePanel: React.FC<NodePanelProps> = (props) => {
                 <Divider>
                     基本信息
                 </Divider>
-                <FormInput
+                <Form.Item
                     name={"name"}
                     label={"节点名称"}
                     required={true}
-                    validateFunction={ValidateUtils.validateNotEmpty}
-                />
-                <FormInput
+                >
+                    <FormInput
+                        validateFunction={ValidateUtils.validateNotEmpty}
+                    />
+                </Form.Item>
+
+                <Form.Item
                     name={"code"}
-                    disabled={props.type === 'start' || props.type === 'over'}
                     label={"节点编码"}
                     required={true}
-                    validateFunction={ValidateUtils.validateNotEmpty}
-                />
-                <FormInput
+                >
+                    <FormInput
+                        disabled={props.type === 'start' || props.type === 'over'}
+                        validateFunction={ValidateUtils.validateNotEmpty}
+                    />
+                </Form.Item>
+
+                <Form.Item
                     name={"view"}
                     label={"视图名称"}
                     tooltip={"界面渲染视图的名称"}
                     required={true}
-                    validateFunction={ValidateUtils.validateNotEmpty}
-                />
+                >
+                    <FormInput
+                        validateFunction={ValidateUtils.validateNotEmpty}
+                    />
+                </Form.Item>
 
                 <Divider>
                     节点配置
                 </Divider>
 
-                <FormSelect
+                <Form.Item
                     name={"approvalType"}
                     label={"节点类型"}
-                    hidden={props.type !== 'node'}
                     tooltip={"会签即多人审批以后再处理，非会签则是一个人处理以后即可响应"}
                     required={true}
-                    validateFunction={ValidateUtils.validateNotEmpty}
-                    options={[
-                        {
-                            label: "会签",
-                            value: "SIGN"
-                        },
-                        {
-                            label: "非会签",
-                            value: "UN_SIGN"
-                        },
-                    ]}
-                />
+                    hidden={props.type !== 'node'}
+                >
+                    <FormSelect
+                        validateFunction={ValidateUtils.validateNotEmpty}
+                        options={[
+                            {
+                                label: "会签",
+                                value: "SIGN"
+                            },
+                            {
+                                label: "非会签",
+                                value: "UN_SIGN"
+                            },
+                        ]}
+                    />
+                </Form.Item>
 
-                <FormInput
+
+                <Form.Item
                     tooltip={"操作人匹配脚本"}
                     name={"operatorMatcher"}
                     label={"操作人"}
                     hidden={true}
-                />
+                >
+                    <FormInput/>
+                </Form.Item>
 
-                <FormSelect
+
+
+                <Form.Item
                     tooltip={"操作人匹配脚本"}
                     name={"operatorMatcherType"}
                     label={"操作人"}
-                    options={[
-                        {
-                            label: "任意人",
-                            value: "any"
-                        },
-                        {
-                            label: "发起人",
-                            value: "creator"
-                        },
-                        {
-                            label: "自定义",
-                            value: "custom"
-                        },
-                    ]}
-                    onChange={(value) => {
-                        props.form.setFieldsValue({
-                            operatorMatcher: GroovyScript.operatorMatcher(value as string)
-                        });
-                        if (value === "custom") {
-                            setCustomOperatorVisible(true);
-                        } else {
-                            setCustomOperatorVisible(false);
-                        }
-                    }}
-                    addonAfter={(
-                        <Space>
-                            {customOperatorVisible && (
-                                <Button
-                                    icon={<SettingOutlined/>}
+                >
+                    <FormSelect
+                        options={[
+                            {
+                                label: "任意人",
+                                value: "any"
+                            },
+                            {
+                                label: "发起人",
+                                value: "creator"
+                            },
+                            {
+                                label: "自定义",
+                                value: "custom"
+                            },
+                        ]}
+                        onChange={(value) => {
+                            props.form.setFieldsValue({
+                                operatorMatcher: GroovyScript.operatorMatcher(value as string)
+                            });
+                            if (value === "custom") {
+                                setCustomOperatorVisible(true);
+                            } else {
+                                setCustomOperatorVisible(false);
+                            }
+                        }}
+                        addonAfter={(
+                            <Space>
+                                {customOperatorVisible && (
+                                    <Button
+                                        icon={<SettingOutlined/>}
+                                        onClick={() => {
+                                            setCustomOperatorViewVisible(true);
+                                        }}
+                                    >
+                                        选择人员
+                                    </Button>
+                                )}
+
+                                <EyeOutlined
                                     onClick={() => {
-                                        setCustomOperatorViewVisible(true);
-                                    }}
-                                >
-                                    选择人员
-                                </Button>
-                            )}
+                                        const value = props.form.getFieldValue("operatorMatcher");
+                                        groovyForm.setFieldValue("type", "operatorMatcher");
+                                        groovyForm.setFieldValue("script", value);
+                                        setScriptViewVisible(true);
+                                    }}/>
 
-                            <EyeOutlined
-                                onClick={() => {
-                                    const value = props.form.getFieldValue("operatorMatcher");
-                                    groovyForm.setFieldValue("type", "operatorMatcher");
-                                    groovyForm.setFieldValue("script", value);
-                                    setScriptViewVisible(true);
-                                }}/>
+                            </Space>
+                        )}
+                    />
+                </Form.Item>
 
-                        </Space>
-                    )}
-                />
 
-                <FormInput
-                    inputType={"number"}
+                <Form.Item
                     tooltip={"超时提醒时间，单位毫米。为0时则为无超时设置"}
                     name={"timeout"}
                     hidden={props.type === 'circulate'}
                     label={"超时时间"}
-                />
+                >
+                    <FormInput
+                        inputType={"number"}
+                    />
+                </Form.Item>
 
-                <FormSwitch
+
+                <Form.Item
                     tooltip={"关闭编辑以后在当前节点下的流程表单无法修改数据"}
                     name={"editable"}
                     label={"是否编辑"}
-                />
+                >
+                    <FormSwitch/>
+                </Form.Item>
 
-                <FormSwitch
+                <Form.Item
                     tooltip={"合并该节点下的待办到一条记录中"}
                     name={"mergeable"}
                     hidden={props.type !== 'node'}
                     label={"是否合并"}
-                />
+                >
+                    <FormSwitch/>
+                </Form.Item>
 
-                <FormInput
+                <Form.Item
                     name={"titleGenerator"}
                     label={"自定义标题"}
                     hidden={true}
-                />
+                >
+                    <FormInput/>
+                </Form.Item>
 
-                <FormSelect
+                <Form.Item
                     tooltip={"待办记录中的标题生成器脚本"}
                     name={"titleGeneratorType"}
                     label={"自定义标题"}
-                    options={[
-                        {
-                            label: "默认",
-                            value: "default"
-                        },
-                        {
-                            label: "自定义",
-                            value: "custom"
-                        },
-                    ]}
-                    onChange={(value) => {
-                        if (value === "default") {
-                            props.form.setFieldsValue({
-                                titleGenerator: GroovyScript.defaultTitleGenerator
-                            })
-                        }
-                        if (value === 'custom') {
-                            setCustomTitleVisible(true);
-                        } else {
-                            setCustomTitleVisible(false);
-                        }
-                    }}
-                    addonAfter={(
-                        <Space>
-                            {customTitleVisible && (
-                                <Button
-                                    icon={<SettingOutlined/>}
+                >
+                    <FormSelect
+                        options={[
+                            {
+                                label: "默认",
+                                value: "default"
+                            },
+                            {
+                                label: "自定义",
+                                value: "custom"
+                            },
+                        ]}
+                        onChange={(value) => {
+                            if (value === "default") {
+                                props.form.setFieldsValue({
+                                    titleGenerator: GroovyScript.defaultTitleGenerator
+                                })
+                            }
+                            if (value === 'custom') {
+                                setCustomTitleVisible(true);
+                            } else {
+                                setCustomTitleVisible(false);
+                            }
+                        }}
+                        addonAfter={(
+                            <Space>
+                                {customTitleVisible && (
+                                    <Button
+                                        icon={<SettingOutlined/>}
+                                        onClick={() => {
+                                            setCustomTitleViewVisible(true);
+                                        }}
+                                    >
+                                        配置标题
+                                    </Button>
+                                )}
+                                <EyeOutlined
                                     onClick={() => {
-                                        setCustomTitleViewVisible(true);
-                                    }}
-                                >
-                                    配置标题
-                                </Button>
-                            )}
-                            <EyeOutlined
-                                onClick={() => {
-                                    const value = props.form.getFieldValue("titleGenerator");
-                                    groovyForm.setFieldValue("type", "titleGenerator");
-                                    groovyForm.setFieldValue("script", value);
-                                    setScriptViewVisible(true);
-                                }}/>
-                        </Space>
-                    )}
-                />
+                                        const value = props.form.getFieldValue("titleGenerator");
+                                        groovyForm.setFieldValue("type", "titleGenerator");
+                                        groovyForm.setFieldValue("script", value);
+                                        setScriptViewVisible(true);
+                                    }}/>
+                            </Space>
+                        )}
+                    />
+                </Form.Item>
+
+
 
                 <Divider>
                     异常配置
                 </Divider>
 
-                <FormInput
+                <Form.Item
                     name={"errTrigger"}
                     label={"异常配置"}
                     hidden={true}
-                />
+                >
+                    <FormInput/>
+                </Form.Item>
 
-                <FormSelect
+                <Form.Item
                     tooltip={"当节点无人员匹配时的异常补偿脚本，可以指定人员或节点处理"}
                     name={"errTriggerType"}
                     label={"异常配置"}
-                    options={[
-                        {
-                            label: "默认",
-                            value: "default"
-                        },
-                        {
-                            label: "自定义",
-                            value: "custom"
-                        },
-                    ]}
-                    onChange={(value) => {
-                        if (value === "default") {
-                            props.form.setFieldsValue({
-                                errTrigger: GroovyScript.defaultErrTrigger
-                            })
-                        }
-                        if (value === 'custom') {
-                            setCustomErrTriggerVisible(true);
-                        } else {
-                            setCustomErrTriggerVisible(false);
-                        }
-                    }}
-                    addonAfter={(
-                        <Space>
-                            {customErrTriggerVisible && (
-                                <Button
-                                    icon={<SettingOutlined/>}
+                >
+                    <FormSelect
+                        options={[
+                            {
+                                label: "默认",
+                                value: "default"
+                            },
+                            {
+                                label: "自定义",
+                                value: "custom"
+                            },
+                        ]}
+                        onChange={(value) => {
+                            if (value === "default") {
+                                props.form.setFieldsValue({
+                                    errTrigger: GroovyScript.defaultErrTrigger
+                                })
+                            }
+                            if (value === 'custom') {
+                                setCustomErrTriggerVisible(true);
+                            } else {
+                                setCustomErrTriggerVisible(false);
+                            }
+                        }}
+                        addonAfter={(
+                            <Space>
+                                {customErrTriggerVisible && (
+                                    <Button
+                                        icon={<SettingOutlined/>}
+                                        onClick={() => {
+                                            setCustomErrTriggerViewVisible(true);
+                                        }}
+                                    >
+                                        配置异常处理
+                                    </Button>
+                                )}
+                                <EyeOutlined
                                     onClick={() => {
-                                        setCustomErrTriggerViewVisible(true);
-                                    }}
-                                >
-                                    配置异常处理
-                                </Button>
-                            )}
-                            <EyeOutlined
-                                onClick={() => {
-                                    const value = props.form.getFieldValue("errTrigger");
-                                    groovyForm.setFieldValue("type", "errTrigger");
-                                    groovyForm.setFieldValue("script", value);
-                                    setScriptViewVisible(true);
-                                }}/>
-                        </Space>
-                    )}
-                />
-
+                                        const value = props.form.getFieldValue("errTrigger");
+                                        groovyForm.setFieldValue("type", "errTrigger");
+                                        groovyForm.setFieldValue("script", value);
+                                        setScriptViewVisible(true);
+                                    }}/>
+                            </Space>
+                        )}
+                    />
+                </Form.Item>
             </Form>
 
             <ScriptModal

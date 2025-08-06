@@ -19,30 +19,41 @@ const LeaveForm: React.FC<FlowFormViewProps> = (props) => {
             layout={"vertical"}
         >
 
-            <FormInput
+            <Form.Item
                 name={"id"}
                 hidden={true}
-            />
+            >
+                <FormInput/>
+            </Form.Item>
 
-            <FormInput
+            <Form.Item
                 name={"username"}
                 hidden={true}
-            />
+            >
+                <FormInput/>
+            </Form.Item>
 
-            <FormInput
+            <Form.Item
                 name={"days"}
                 label={"请假天数"}
-                inputType={"number"}
                 required={true}
-                validateFunction={ValidateUtils.validateNotEmpty}
-            />
+            >
+                <FormInput
+                    inputType={"number"}
+                    validateFunction={ValidateUtils.validateNotEmpty}
+                />
+            </Form.Item>
 
-            <FormTextArea
+
+            <Form.Item
                 name={"desc"}
                 label={"请假原因"}
                 required={true}
-                validateFunction={ValidateUtils.validateNotEmpty}
-            />
+            >
+                <FormTextArea
+                    validateFunction={ValidateUtils.validateNotEmpty}
+                />
+            </Form.Item>
 
         </Form>
     )
