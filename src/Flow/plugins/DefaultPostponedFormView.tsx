@@ -17,7 +17,7 @@ const DefaultPostponedFormView:React.FC<PostponedFormProps> = (props)=>{
             onOk={async ()=>{
                 await formInstance.submit();
             }}
-            destroyOnClose={true}
+            destroyOnHidden={true}
         >
             <Form
                 form={formInstance}
@@ -25,13 +25,16 @@ const DefaultPostponedFormView:React.FC<PostponedFormProps> = (props)=>{
                     props.onFinish(values.hours);
                 }}
             >
-                <FormInput
+                <Form.Item
                     name={"hours"}
                     label={"延期时间"}
                     tooltip={"以当前时间开始延期，延期单位为小时"}
-                    addonAfter={"小时"}
-                    validateFunction={ValidateUtils.validateNotEmpty}
-                />
+                >
+                    <FormInput
+                        addonAfter={"小时"}
+                        validateFunction={ValidateUtils.validateNotEmpty}
+                    />
+                </Form.Item>
             </Form>
         </Modal>
     )

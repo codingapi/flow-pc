@@ -24,13 +24,10 @@ export const ScriptModal: React.FC<ScriptModalProps> = (props) => {
             onCancel={() => {
                 props.setVisible(false);
             }}
-            onClose={() => {
-                props.setVisible(false);
-            }}
             onOk={async ()=>{
                 await props.form.submit();
             }}
-            destroyOnClose={true}
+            destroyOnHidden={true}
         >
             <Form
                 form={props.form}
@@ -50,17 +47,21 @@ export const ScriptModal: React.FC<ScriptModalProps> = (props) => {
                         </div>
                     </div>
                     <div className={"flow-script-form"}>
-                        <FormInput
+                        <Form.Item
                             name={"type"}
                             hidden={true}
-                        />
-
-                        <FormCode
+                        >
+                            <FormInput/>
+                        </Form.Item>
+                        <Form.Item
                             name={"script"}
-                            codeStyle={{
-                                height: '65vh',
-                            }}
-                        />
+                        >
+                            <FormCode
+                                codeStyle={{
+                                    height: '65vh',
+                                }}
+                            />
+                        </Form.Item>
                     </div>
                 </div>
             </Form>
