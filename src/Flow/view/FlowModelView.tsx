@@ -15,10 +15,7 @@ import "./FlowModelView.scss";
             onOk={()=>{
                 props.setVisible(false);
             }}
-            onClose={()=>{
-                props.setVisible(false);
-            }}
-            destroyOnClose={true}
+            destroyOnHidden={true}
             footer={false}
             closable={false}
         >
