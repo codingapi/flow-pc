@@ -1,6 +1,6 @@
 {
   "name": "@codingapi/flow-pc",
-  "version": "0.0.51",
+  "version": "0.0.55",
   "description": "A UI Framework built with React and TypeScript",
   "keywords": [
     "ui",
@@ -37,10 +37,10 @@
   },
   "dependencies": {
     "@ant-design/pro-components": "^2.8.7",
-    "@codingapi/form-pc": "^0.0.51",
-    "@codingapi/ui-framework": "^0.0.51",
-    "@logicflow/core": "^2.0.5",
-    "@logicflow/extension": "^2.0.9",
+    "@codingapi/form-pc": "^0.0.55",
+    "@codingapi/ui-framework": "^0.0.55",
+    "@logicflow/core": "2.0.5",
+    "@logicflow/extension": "2.0.9",
     "@reduxjs/toolkit": "^2.2.7",
     "moment": "^2.30.1",
     "react-markdown": "^10.0.0",
