@@ -8,7 +8,6 @@ import {
     FormInstance,
     UserSelectFormProps,
     UserSelectFormViewKey,
-    ValidateUtils
 } from "@codingapi/ui-framework";
 import {Form, FormInput, FormSelect, FormSwitch} from "@codingapi/form-pc";
 import {
@@ -79,20 +78,29 @@ export const NodePanel: React.FC<NodePanelProps> = (props) => {
                     name={"name"}
                     label={"节点名称"}
                     required={true}
+                    rules={[
+                        {
+                            required: true,
+                            message: "请输入节点名称"
+                        }
+                    ]}
                 >
-                    <FormInput
-                        validateFunction={ValidateUtils.validateNotEmpty}
-                    />
+                    <FormInput/>
                 </Form.Item>
 
                 <Form.Item
                     name={"code"}
                     label={"节点编码"}
                     required={true}
+                    rules={[
+                        {
+                            required: true,
+                            message: "请输入节点编码"
+                        }
+                    ]}
                 >
                     <FormInput
                         disabled={props.type === 'start' || props.type === 'over'}
-                        validateFunction={ValidateUtils.validateNotEmpty}
                     />
                 </Form.Item>
 
@@ -101,10 +109,14 @@ export const NodePanel: React.FC<NodePanelProps> = (props) => {
                     label={"视图名称"}
                     tooltip={"界面渲染视图的名称"}
                     required={true}
+                    rules={[
+                        {
+                            required: true,
+                            message: "请输入视图名称"
+                        }
+                    ]}
                 >
-                    <FormInput
-                        validateFunction={ValidateUtils.validateNotEmpty}
-                    />
+                    <FormInput/>
                 </Form.Item>
 
                 <Divider>
@@ -117,9 +129,14 @@ export const NodePanel: React.FC<NodePanelProps> = (props) => {
                     tooltip={"会签即多人审批以后再处理，非会签则是一个人处理以后即可响应"}
                     required={true}
                     hidden={props.type !== 'node'}
+                    rules={[
+                        {
+                            required: true,
+                            message: "请选择节点类型"
+                        }
+                    ]}
                 >
                     <FormSelect
-                        validateFunction={ValidateUtils.validateNotEmpty}
                         options={[
                             {
                                 label: "会签",

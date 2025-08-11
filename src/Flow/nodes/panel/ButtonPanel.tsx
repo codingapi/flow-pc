@@ -5,7 +5,7 @@ import {ScriptModal} from "./ScriptModal";
 import {EyeOutlined, SettingOutlined} from "@ant-design/icons";
 import {FlowContext} from "../../domain/FlowContext";
 import {Form, FormColor, FormInput, FormSelect} from "@codingapi/form-pc";
-import {ComponentBus, ValidateUtils} from "@codingapi/ui-framework";
+import {ComponentBus} from "@codingapi/ui-framework";
 import {FlowButtonCustomApiFormProps, FlowButtonCustomApiFormPropsKey} from "@codingapi/ui-framework";
 import DefaultFlowButtonCustomApiFormView from "../../plugins/DefaultFlowButtonCustomApiFormView";
 
@@ -157,10 +157,15 @@ export const ButtonPanel: React.FC<ButtonPanelProps> = (props) => {
                         name={"name"}
                         label={"按钮名称"}
                         required={true}
+                        rules={[
+                            {
+                                required: true,
+                                message: "请输入按钮名称"
+                            }
+                        ]}
                     >
                         <FormInput
                             placeholder={"请输入按钮名称"}
-                            validateFunction={ValidateUtils.validateNotEmpty}
                         />
                     </Form.Item>
 
@@ -223,7 +228,7 @@ export const ButtonPanel: React.FC<ButtonPanelProps> = (props) => {
                         <Form.Item
                             name={"eventKey"}
                             label={"事件Key"}
-                            help={"事件Key用于流程Form的事件触发"}
+                            tooltip={"事件Key用于流程Form的事件触发"}
                             required={true}
                         >
                             <FormInput/>

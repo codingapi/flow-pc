@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {FlowFormViewProps, ValidateUtils} from "@codingapi/ui-framework";
+import {FlowFormViewProps} from "@codingapi/ui-framework";
 import {Form, FormItem} from "@codingapi/form-pc";
 
 const LeaveForm: React.FC<FlowFormViewProps> = (props) => {
@@ -39,7 +39,12 @@ const LeaveForm: React.FC<FlowFormViewProps> = (props) => {
                 required={true}
                 type={"input"}
                 inputType={"number"}
-                validateFunction={ValidateUtils.validateNotEmpty}
+                rules={[
+                    {
+                        required: true,
+                        message: "请输入请假天数"
+                    },
+                ]}
             >
             </FormItem>
 

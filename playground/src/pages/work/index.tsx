@@ -1,10 +1,9 @@
 import React from "react";
-import {Flow,FlowActionType} from "@codingapi/flow-pc";
+import {Flow, FlowActionType} from "@codingapi/flow-pc";
 import {ActionType, PageContainer, ProTable} from "@ant-design/pro-components";
 import {changeState, copy, list, remove, save, schema} from "@/api/flow";
 import {Button, Drawer, message, Modal, Popconfirm, Space} from "antd";
-import {Form,FormInput,FormTextArea,FormSwitch} from "@codingapi/form-pc";
-import {ValidateUtils} from "@codingapi/ui-framework";
+import {Form, FormItem} from "@codingapi/form-pc";
 
 const FlowWorkPage = () => {
 
@@ -195,15 +194,12 @@ const FlowWorkPage = () => {
                 data-testid={"flow-editor"}
                 title="编辑流程"
                 open={editorVisible}
-                destroyOnClose={true}
-                onClose={()=>{
+                destroyOnHidden={true}
+                onCancel={() => {
                     setEditorVisible(false)
                 }}
-                onCancel={()=>{
-                    setEditorVisible(false)
-                }}
-                onOk={async ()=>{
-                    await form.submit();
+                onOk={() => {
+                    form.submit();
                 }}
             >
 
@@ -212,40 +208,62 @@ const FlowWorkPage = () => {
                     layout={"vertical"}
                     onFinish={handlerSave}
                 >
-                    <FormInput
+                    <FormItem
+                        type={"input"}
                         name={"id"}
                         hidden={true}
                     />
 
-                    <FormInput
+                    <FormItem
+                        type={"input"}
                         name={"title"}
                         label={"标题"}
                         required={true}
-                        validateFunction={ValidateUtils.validateNotEmpty}
+                        rules={[
+                            {
+                                required: true,
+                                message: "请输入流程标题"
+                            }
+                        ]}
                     />
 
-                    <FormInput
+                    <FormItem
+                        type={"input"}
                         name={"code"}
                         label={"编码"}
                         required={true}
-                        validateFunction={ValidateUtils.validateNotEmpty}
+                        rules={[
+                            {
+                                required: true,
+                                message: "请输入流程编码"
+                            }
+                        ]}
                     />
 
-                    <FormTextArea
+                    <FormItem
                         name={"description"}
+                        type={"textarea"}
+                        textAreaRows={2}
                         label={"描述"}
                     />
 
-                    <FormInput
+                    <FormItem
+                        type={"input"}
                         name={"postponedMax"}
                         tooltip={"允许流程最大的延期次数"}
                         label={"最大延期次数"}
                         inputType={'number'}
                         required={true}
-                        validateFunction={ValidateUtils.validateNotEmpty}
+                        rules={[
+                            {
+                                required: true,
+                                message: "请输入最大延期次数"
+                            },
+                        ]}
                     />
 
-                    <FormSwitch
+                    <FormItem
+                        type={"switch"}
                         name={"skipIfSameApprover"}
                         tooltip={"是否跳过相同审批人，默认为否"}
                         label={"是否跳过相同审批人"}
@@ -262,7 +280,7 @@ const FlowWorkPage = () => {
                 onClose={() => {
                     setVisible(false);
                 }}
-                destroyOnClose={true}
+                destroyOnHidden={true}
                 style={{
                     padding: 0,
                     margin: 0
